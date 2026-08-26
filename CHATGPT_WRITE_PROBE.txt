@@ -1,2 +1,3 @@
 ChatGPT GitHub write-access probe for jose-study.
 This file is temporary and contains no secrets.
+stage=updated
