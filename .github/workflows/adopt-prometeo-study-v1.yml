@@ -1,0 +1,47 @@
+name: Adopt Prometeo Study Commons v1
+on:
+  push:
+    paths:
+      - '.github/workflows/adopt-prometeo-study-v1.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  adopt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch José projection to shared UI owner
+        shell: python
+        run: |
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          s=s.replace('JOS-MATH-RIVER-R12-20260827','JOS-STUDY-SHARED-R13-20260827')
+          s=s.replace('<title>José · Study · R12</title>','<title>José · Study · R13 Shared</title>')
+          marker='<title>José · Study · R13 Shared</title><style>'
+          if 'prometeo/shared/study/v1/components.css' not in s and marker in s:
+              s=s.replace(marker,'<title>José · Study · R13 Shared</title>\n<link rel="stylesheet" href="https://juanmanuelpm.github.io/prometeo/shared/study/v1/components.css">\n<script src="https://juanmanuelpm.github.io/prometeo/shared/study/v1/components.js"></script>\n<style>',1)
+          s=s.replace('function formula(f){if(!f)return"";','function formula(f){if(window.PrometeoStudy?.formula)return window.PrometeoStudy.formula(f);if(!f)return"";',1)
+          s=s.replace('function inputHTML(ex,idx,val){let size=','function inputHTML(ex,idx,val){if(window.PrometeoStudy?.inputHTML)return window.PrometeoStudy.inputHTML(ex,idx,val);let size=',1)
+          s=s.replace('function renderMath(ex,a){let m=','function renderMath(ex,a){if(window.PrometeoStudy?.renderMath)return window.PrometeoStudy.renderMath(ex,a);let m=',1)
+          old='function subjectStateHTML(info){\n  if(info.kind==="locked")return `<div class="subject-state locked" aria-hidden="true">${SVG.lock}</div>`;\n  return `<div class="subject-state ${info.kind}" aria-hidden="true">${esc(info.label)}</div>`;\n}'
+          new='function subjectStateHTML(info){\n  if(window.PrometeoStudy?.subjectState)return window.PrometeoStudy.subjectState(info);\n  if(info.kind==="locked")return `<div class="subject-state locked" aria-hidden="true">${SVG.lock}</div>`;\n  return `<div class="subject-state ${info.kind}" aria-hidden="true">${esc(info.label)}</div>`;\n}'
+          s=s.replace(old,new,1)
+          if '<meta name="prometeo-study-ui" content="1.0.0">' not in s:
+              s=s.replace('<meta name="jose-build" content="JOS-STUDY-SHARED-R13-20260827">','<meta name="jose-build" content="JOS-STUDY-SHARED-R13-20260827">\n<meta name="prometeo-study-ui" content="1.0.0">',1)
+          p.write_text(s,encoding='utf-8')
+      - name: Verify shared adoption
+        run: |
+          grep -q 'JOS-STUDY-SHARED-R13-20260827' index.html
+          grep -q 'prometeo/shared/study/v1/components.css' index.html
+          grep -q 'PrometeoStudy?.renderMath' index.html
+          grep -q 'prometeo-study-ui' index.html
+      - name: Commit projection
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'architecture: adopt shared Prometeo Study UI v1'
+          git push
