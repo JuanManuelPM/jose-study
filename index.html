@@ -1,6 +1,9 @@
 <!doctype html>
-<!-- BUILD JOS-MATH-RIVER-R12-20260827 -->
-<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f3f1eb"><meta name="jose-study-build" content="JOS-MATH-RIVER-R12-20260827"><title>José · Study · R12</title><style>
+<!-- BUILD JOS-STUDY-SHARED-R13-20260827 -->
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f3f1eb"><meta name="jose-study-build" content="JOS-STUDY-SHARED-R13-20260827"><title>José · Study · R13 Shared</title>
+<link rel="stylesheet" href="https://juanmanuelpm.github.io/prometeo/shared/study/v1/components.css">
+<script src="https://juanmanuelpm.github.io/prometeo/shared/study/v1/components.js"></script>
+<style>
 :root{
   --bg:#f3f1eb;--ink:#111315;--muted:#6f7273;--line:rgba(17,19,21,.14);
   --soft:rgba(17,19,21,.075);--green:#5d9f69;--red:#b53b36;--pending:#8b7355;
@@ -139,10 +142,11 @@ a{text-underline-offset:3px}[hidden]{display:none!important}:focus-visible{outli
 @media(pointer:coarse){.topic-row,.theory-unit-head,.exercise-head,.future-toggle,.choice,.submit,.youtube-resource,.icon-btn,.enter,.river-r12 summary,.calendar-nav button{min-height:44px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.subject-card,.s-open,.theory-panel,.theory-unit-head .chev svg,.exercise-disclosure svg,.exercise-panel,.future-chev svg,.future-panel,.youtube-resource,.word-fill{transition:none!important}}
 </style>
-<meta name="jose-build" content="JOS-MATH-RIVER-R12-20260827">
+<meta name="jose-build" content="JOS-STUDY-SHARED-R13-20260827">
+<meta name="prometeo-study-ui" content="1.0.0">
 </head><body><div id="app"></div><script>
 
-const BUILD_ID="JOS-MATH-RIVER-R12-20260827";
+const BUILD_ID="JOS-STUDY-SHARED-R13-20260827";
 document.documentElement.dataset.build=BUILD_ID;
 
 const R4I={
@@ -225,9 +229,9 @@ function eqVal(v,a){if(typeof a==="number"){const n=parseNum(v);return Number.is
 function evalExercise(ex,a){if(ex.type==="choice")return Number(a.response?.[0])===Number(ex.correct);let r=(a.response||[]).slice(0,ex.answers.length);if(r.length<ex.answers.length)return false;if(ex.order==="any"&&ex.answers.every(x=>typeof x==="number")){let x=r.map(parseNum).sort((u,v)=>u-v),y=[...ex.answers].sort((u,v)=>u-v);return x.every((n,i)=>Number.isFinite(n)&&Math.abs(n-y[i])<1e-6)}return ex.answers.every((ans,i)=>eqVal(r[i],ans))}
 function settleDue(){let changed=false,now=Date.now();for(const t of DATA.topics)for(const th of t.theory)for(const ex of th.practices){let a=state.attempts[ex.id];if(a&&a.submitted&&a.result==="pending"&&a.dueAt<=now){a.result=evalExercise(ex,a)?"correct":"wrong";a.dueAt=0;changed=true}}if(changed)save()}
 function secLeft(a){return Math.max(0,Math.ceil((a.dueAt-Date.now())/1000))}
-function formula(f){if(!f)return"";if(f.type==="stack")return `<div class="math-sheet math-stack">${f.lines.map(x=>`<div>${x}</div>`).join("")}</div>`;if(f.type==="system")return `<div class="math-sheet"><div class="math-system"><div class="brace">{</div><div class="system-lines">${f.lines.map(x=>`<div>${x}</div>`).join("")}</div></div></div>`;if(f.type==="fraction")return `<div class="math-sheet">${f.prefix||""}<span class="frac"><span>${f.num}</span><span>${f.den}</span></span></div>`;if(f.type==="sqrt")return `<div class="math-sheet">${f.prefix||""}<span class="sqrt"><span class="sqrt-sign">√</span><span class="sqrt-body">${f.inside}</span></span></div>`;if(f.type==="quadratic")return `<div class="math-sheet">${f.html}</div>`;if(f.type==="vector")return `<div class="math-sheet vector-display">${f.html}</div>`;return""}
-function inputHTML(ex,idx,val){let size=ex.fields?.[idx]?.size||"short",cls=size==="long"?" long":size==="sign"?" sign":"";return `<input class="inline-input${cls}" inputmode="decimal" autocomplete="off" aria-label="${esc(ex.fields?.[idx]?.label||`respuesta ${idx+1}`)}" data-field="${idx}" value="${esc(val??"")}">`}
-function renderMath(ex,a){let m=ex.math||{};let vals=a.response||[];let replace=t=>String(t).replace(/\{\{(\d+)\}\}/g,(_,n)=>inputHTML(ex,Number(n),vals[Number(n)]));if(m.type==="template")return `<div class="math-sheet math-template">${replace(m.html)}</div>`;if(m.type==="system")return `<div class="math-sheet"><div class="math-system"><div class="brace">{</div><div class="system-lines">${m.lines.map(x=>`<div>${x}</div>`).join("")}</div></div>${m.answer_html?`<div class="answer-under">${replace(m.answer_html)}</div>`:""}</div>`;if(m.type==="stack")return `<div class="math-sheet math-stack">${m.lines.map(x=>`<div>${replace(x)}</div>`).join("")}</div>`;if(m.type==="vector")return `<div class="math-sheet vector-display">${replace(m.html)}</div>`;return formula(m)}
+function formula(f){if(window.PrometeoStudy?.formula)return window.PrometeoStudy.formula(f);if(!f)return"";if(f.type==="stack")return `<div class="math-sheet math-stack">${f.lines.map(x=>`<div>${x}</div>`).join("")}</div>`;if(f.type==="system")return `<div class="math-sheet"><div class="math-system"><div class="brace">{</div><div class="system-lines">${f.lines.map(x=>`<div>${x}</div>`).join("")}</div></div></div>`;if(f.type==="fraction")return `<div class="math-sheet">${f.prefix||""}<span class="frac"><span>${f.num}</span><span>${f.den}</span></span></div>`;if(f.type==="sqrt")return `<div class="math-sheet">${f.prefix||""}<span class="sqrt"><span class="sqrt-sign">√</span><span class="sqrt-body">${f.inside}</span></span></div>`;if(f.type==="quadratic")return `<div class="math-sheet">${f.html}</div>`;if(f.type==="vector")return `<div class="math-sheet vector-display">${f.html}</div>`;return""}
+function inputHTML(ex,idx,val){if(window.PrometeoStudy?.inputHTML)return window.PrometeoStudy.inputHTML(ex,idx,val);let size=ex.fields?.[idx]?.size||"short",cls=size==="long"?" long":size==="sign"?" sign":"";return `<input class="inline-input${cls}" inputmode="decimal" autocomplete="off" aria-label="${esc(ex.fields?.[idx]?.label||`respuesta ${idx+1}`)}" data-field="${idx}" value="${esc(val??"")}">`}
+function renderMath(ex,a){if(window.PrometeoStudy?.renderMath)return window.PrometeoStudy.renderMath(ex,a);let m=ex.math||{};let vals=a.response||[];let replace=t=>String(t).replace(/\{\{(\d+)\}\}/g,(_,n)=>inputHTML(ex,Number(n),vals[Number(n)]));if(m.type==="template")return `<div class="math-sheet math-template">${replace(m.html)}</div>`;if(m.type==="system")return `<div class="math-sheet"><div class="math-system"><div class="brace">{</div><div class="system-lines">${m.lines.map(x=>`<div>${x}</div>`).join("")}</div></div>${m.answer_html?`<div class="answer-under">${replace(m.answer_html)}</div>`:""}</div>`;if(m.type==="stack")return `<div class="math-sheet math-stack">${m.lines.map(x=>`<div>${replace(x)}</div>`).join("")}</div>`;if(m.type==="vector")return `<div class="math-sheet vector-display">${replace(m.html)}</div>`;return formula(m)}
 function eventMark(e){return e.type==="river"?`<span class="event-mark"><img src="${RIVER}" alt="River"></span>`:`<span class="event-mark">${SVG.flag}</span>`}
 function subjectProgressInfo(s,mathStats){
   if(!s.enabled)return {kind:"locked",pct:0,label:""};
@@ -253,6 +257,7 @@ function nextPartialForSubject(subjectId){
   return {...e,left};
 }
 function subjectStateHTML(info){
+  if(window.PrometeoStudy?.subjectState)return window.PrometeoStudy.subjectState(info);
   if(info.kind==="locked")return `<div class="subject-state locked" aria-hidden="true">${SVG.lock}</div>`;
   return `<div class="subject-state ${info.kind}" aria-hidden="true">${esc(info.label)}</div>`;
 }
