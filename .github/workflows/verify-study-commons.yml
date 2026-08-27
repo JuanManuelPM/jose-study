@@ -1,0 +1,36 @@
+name: Verify Prometeo Study Commons
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-study-commons.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch public shared contract and runtime
+        run: |
+          set -euo pipefail
+          curl -fsSL --retry 5 --retry-delay 2 https://juanmanuelpm.github.io/prometeo/shared/study/current.json -o /tmp/current.json
+          curl -fsSL --retry 5 --retry-delay 2 https://juanmanuelpm.github.io/prometeo/shared/study/v1/components.js -o /tmp/components.js
+          curl -fsSL --retry 5 --retry-delay 2 https://juanmanuelpm.github.io/prometeo/shared/study/v1/components.css -o /tmp/components.css
+      - name: Validate contract and JavaScript
+        run: |
+          node --check /tmp/components.js
+          python - <<'PY'
+          import json
+          d=json.load(open('/tmp/current.json'))
+          assert d['contract']=='prometeo-study-ui'
+          assert d['major']==1
+          assert d['version']=='1.0.0'
+          print('Commons',d['contract'],d['version'])
+          PY
+          test -s /tmp/components.css
+      - name: Verify José is a v1 consumer
+        run: |
+          grep -q 'JOS-STUDY-SHARED-R13-20260827' index.html
+          grep -q 'prometeo/shared/study/v1/components.css' index.html
+          grep -q 'prometeo/shared/study/v1/components.js' index.html
