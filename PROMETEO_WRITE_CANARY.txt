@@ -1,0 +1,6 @@
+PROMETEO_JOSE_GIT_WRITER_CANARY
+DATE=2026-08-27
+BASE_MAIN=ef969ec426a9fbd16f333cf45efae8959fe2c41d
+BRANCH=prometeo-sync-canary-20260827
+SCOPE=isolated_branch_only
+PURPOSE=prove_jose-study_authenticated_file_write_without_touching_main
