@@ -453,5 +453,5 @@ function river(){
 }
 function route(){settleDue();let p=(location.hash||"#home").slice(1).split('/').filter(Boolean);if(!p.length||p[0]==="home")return home();if(p[0]==="calendar")return calendar();if(p[0]==="river")return river(p[1]||"now");if(p[0]==="subject"&&p[1]==="math")return subjectView();if(p[0]==="topic"){let t=topic(p[1]);if(t)return topicView(t)}go("#home")}
 window.addEventListener("hashchange",route);window.addEventListener("keydown",e=>{let editable=e.target.matches?.("input,textarea,select,[contenteditable=true]");if(e.key==="Escape"){if(editable){e.target.blur();return}if(location.hash&&!location.hash.includes("#home")){history.back()}}});if(!location.hash)location.hash="#home";else route();
-</script><script type="module" src="/prometeo/shared/prometeo-shell/v1/prometeo-shell.js?v=1" data-prometeo-shell></script>
+</script><script type="module" src="https://juanmanuelpm.github.io/prometeo/shared/prometeo-shell/v2/prometeo-shell.js?v=2" data-prometeo-shell></script>
 </body></html>
