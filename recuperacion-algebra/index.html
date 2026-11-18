@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#f6f5f1">
-<meta name="jose-recovery-build" content="JOSE-RECOVERY-FOCUS-V2-20261118">
+<meta name="jose-recovery-build" content="JOSE-RECOVERY-TRAPS-STICKERS-V3-20261118">
 <title>José · Algebra</title>
 <style>
 :root{--paper:#f6f5f1;--ink:#171a18;--line:#d9dad5;--muted:#7b807b;--okay:#236448;--bad:#9a3831}
@@ -90,6 +90,18 @@ header::after{content:"";position:absolute;left:0;right:0;top:75px;height:1px;ba
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 body[data-view="focus"] header,body[data-view="report"] header{display:none}
 body[data-view="focus"] #focus,body[data-view="report"] #report{min-height:100svh}
+
+/* Single transient sticker, never covers the exercise or option buttons */
+.focus-middle{position:relative}
+.sticker-burst{position:absolute;right:0;bottom:-32px;z-index:7;pointer-events:none;user-select:none;font-size:clamp(76px,9vw,112px);line-height:1;filter:drop-shadow(0 6px 0 rgba(20,27,20,.08));transform-origin:50% 80%}
+.sticker-burst.active{animation:sticker-pop 1.15s cubic-bezier(.25,.8,.26,1) both}
+.sticker-burst.complete.active{animation:sticker-complete 1.55s cubic-bezier(.2,.85,.3,1) both}
+.sticker-burst.complete:before{content:"✦   ✧   ✦";position:absolute;top:-30px;left:-30px;white-space:nowrap;font-size:25px;color:#c27d30;letter-spacing:12px}
+@keyframes sticker-pop{0%{opacity:0;transform:translateY(28px) scale(.5) rotate(-18deg)}18%{opacity:1;transform:translateY(-15px) scale(1.18) rotate(12deg)}38%{opacity:1;transform:translateY(1px) scale(.95) rotate(-5deg)}70%{opacity:1;transform:translateY(0) scale(1) rotate(0)}100%{opacity:0;transform:translateY(12px) scale(.92) rotate(5deg)}}
+@keyframes sticker-complete{0%{opacity:0;transform:translateY(25px) scale(.3) rotate(-22deg)}20%{opacity:1;transform:translateY(-25px) scale(1.3) rotate(14deg)}55%{opacity:1;transform:translateY(0) scale(1.05) rotate(0)}85%{opacity:1}100%{opacity:0;transform:translateY(-5px) scale(1.1)}}
+@media(max-width:680px){.sticker-burst{font-size:76px;right:0;bottom:-23px}}
+@media(prefers-reduced-motion:reduce){.sticker-burst.active{animation:none;opacity:.92}}
+
 </style>
 </head>
 <body>
@@ -98,27 +110,62 @@ body[data-view="focus"] #focus,body[data-view="report"] #report{min-height:100sv
 <div class="global" aria-label="Progreso global"><span class="global-num" id="globalNum">0 / 48</span><div class="global-line" aria-hidden="true"><span id="globalLine"></span></div></div>
 </header>
 <main id="home"><div class="topics" id="topics"></div><div class="bottom-actions"><button class="subtle-btn" id="resultsButton" hidden>Results</button></div></main>
-<main id="focus" hidden><div class="focus-top"><button class="back" id="backButton" aria-label="Volver a temas">←</button><div class="focus-title" id="focusTitle"></div><div class="focus-index" id="focusIndex"></div></div><div class="focus-stage" aria-hidden="true"><span id="focusLine"></span></div><section class="focus-middle"><h1 class="math" id="question"></h1><div class="answers" id="answers" role="group" aria-label="Respuestas"></div><div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div><div class="hint-text" id="hintText" hidden></div><div class="controls" id="controls"></div></section></main>
+<main id="focus" hidden><div class="focus-top"><button class="back" id="backButton" aria-label="Volver a temas">←</button><div class="focus-title" id="focusTitle"></div><div class="focus-index" id="focusIndex"></div></div><div class="focus-stage" aria-hidden="true"><span id="focusLine"></span></div><section class="focus-middle"><h1 class="math" id="question"></h1><div class="answers" id="answers" role="group" aria-label="Respuestas"></div><div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div><div class="hint-text" id="hintText" hidden></div><div class="controls" id="controls"></div><div class="sticker-burst" id="stickerBurst" aria-hidden="true" hidden></div></section></main>
 <main id="report" hidden><button class="secondary" id="reportBack" style="text-align:left;align-self:flex-start">← Back</button><h1 class="report-title">Results.</h1><div class="report-total" id="reportTotal"></div><div id="reportTopics"></div><div class="report-actions"><button class="primary" id="copyResults">Copy results</button><button class="secondary" id="returnHome">Home</button></div><div id="reportNote"></div></main>
 <script>
-const BANK=[{"id":"index","name":"Index laws","es":"Leyes de los exponentes","formula":"aᵐ · aⁿ = aᵐ⁺ⁿ  ·  aᵐ/aⁿ = aᵐ⁻ⁿ  ·  (aᵐ)ⁿ = aᵐⁿ","rule":"Elegí la regla de potencias antes de operar. Si aparece exponente negativo, expresalo como fracción.","q":[["x² · x⁵","x⁷|x¹⁰|x³|2x⁷",0,"Misma base: los exponentes se suman.","2 + 5 = 7.","x² · x⁵ = x⁷."],["x⁸ ÷ x³","x¹¹|x⁵|x²⁴|x³",1,"Dividir potencias de igual base exige restar exponentes.","8 − 3 = 5.","x⁸/x³ = x⁵."],["(x³)⁴","x⁷|4x³|x¹²|x⁸",2,"Una potencia de otra potencia multiplica exponentes.","3 × 4 = 12.","(x³)⁴ = x¹²."],["(2x²)(3x⁴)","5x⁶|6x⁸|6x²|6x⁶",3,"Separá coeficientes y potencias de x.","2 × 3 = 6; 2 + 4 = 6.","(2x²)(3x⁴) = 6x⁶."],["x⁰  (x ≠ 0)","1|0|x|−1",0,"Cualquier base no nula elevada a cero vale lo mismo.","Pensá en x³/x³.","x⁰ = 1."],["x⁻²","−x²|1/x²|x²|−1/x²",1,"Un exponente negativo invierte la base.","El signo menos pertenece al exponente, no al valor.","x⁻² = 1/x²."],["3² · 3³","81|729|243|27",2,"Misma base: sumá exponentes.","3⁵ = 3 × 3 × 3 × 3 × 3.","3²·3³ = 3⁵ = 243."],["(2a³)²","2a⁶|4a⁵|4a³|4a⁶",3,"El exponente externo afecta al coeficiente y a la letra.","2² = 4 y (a³)² = a⁶.","(2a³)² = 4a⁶."],["x⁵ ÷ x⁷","1/x²|x²|x¹²|−x²",0,"Restá exponentes; después convertí el negativo.","5 − 7 = −2.","x⁵/x⁷ = x⁻² = 1/x²."],["(a²b³)²","a⁴b⁵|a⁴b⁶|a⁸b⁶|a²b⁶",1,"La potencia se distribuye sobre ambos factores.","a: 2 × 2; b: 3 × 2.","(a²b³)² = a⁴b⁶."],["16¹ᐟ²","8|256|4|2",2,"Un exponente 1/2 significa raíz cuadrada.","¿Qué número positivo al cuadrado da 16?","16¹ᐟ² = √16 = 4."],["(x⁻²)³","−1/x⁶|1/x⁵|x⁶|1/x⁶",3,"Multiplicá los exponentes, incluido el signo negativo.","−2 × 3 = −6.","(x⁻²)³ = x⁻⁶ = 1/x⁶."]]},{"id":"sim","name":"Simultaneous equations","es":"Sistemas de ecuaciones","formula":"Elimination: sumá o restá ecuaciones para cancelar una incógnita.","rule":"Encontrá x e y y comprobá los valores sustituyéndolos en las DOS ecuaciones.","q":[["x + y = 9   ·   x − y = 3","x=6, y=3|x=3, y=6|x=5, y=4|x=9, y=3",0,"Sumá las dos ecuaciones.","2x = 12.","x=6; luego y=9−6=3."],["2x + y = 11   ·   x − y = 1","x=3, y=5|x=4, y=3|x=5, y=1|x=2, y=7",1,"Sumá para eliminar y.","3x = 12.","x=4, y=3."],["x + 2y = 10   ·   x − y = 1","x=2, y=4|x=6, y=2|x=4, y=3|x=3, y=4",2,"Restá la segunda ecuación de la primera.","3y = 9.","y=3, x=4."],["3x + y = 13   ·   x + y = 7","x=4, y=1|x=2, y=5|x=4, y=3|x=3, y=4",3,"Restá las ecuaciones para cancelar y.","2x = 6.","x=3, y=4."],["2x + 3y = 13   ·   x + y = 5","x=2, y=3|x=3, y=2|x=1, y=4|x=4, y=1",0,"Multiplicá la segunda ecuación por 2.","Restá y obtené y=3.","x=2, y=3."],["4x − y = 5   ·   x + y = 5","x=1, y=4|x=2, y=3|x=3, y=2|x=4, y=1",1,"Sumá las ecuaciones.","5x = 10.","x=2, y=3."],["3x + 2y = 16   ·   x − y = 2","x=2, y=5|x=3, y=4|x=4, y=2|x=5, y=1",2,"Multiplicá la segunda por 2 y sumá.","5x = 20.","x=4, y=2."],["2x − y = 1   ·   x + 2y = 8","x=3, y=5|x=4, y=7|x=1, y=1|x=2, y=3",3,"Despejá y en la primera ecuación.","y = 2x − 1.","x=2, y=3."],["5x + 2y = 19   ·   x + y = 5","x=3, y=2|x=2, y=3|x=1, y=4|x=4, y=1",0,"Multiplicá la segunda ecuación por 2.","Restá: 3x = 9.","x=3, y=2."],["2x + 5y = 19   ·   x + y = 5","x=3, y=2|x=2, y=3|x=4, y=1|x=1, y=4",1,"Multiplicá la segunda ecuación por 2.","Restá: 3y = 9.","x=2, y=3."],["3x − 2y = 0   ·   x + y = 5","x=4, y=1|x=3, y=2|x=2, y=3|x=1, y=4",2,"Despejá y = 5 − x.","3x − 2(5 − x) = 0.","x=2, y=3."],["4x + 3y = 25   ·   2x − y = 5","x=3, y=4|x=5, y=1|x=2, y=5|x=4, y=3",3,"Multiplicá la segunda ecuación por 3.","Sumá: 10x = 40.","x=4, y=3."]]},{"id":"factor","name":"Factorization","es":"Factorización","formula":"a² − b² = (a − b)(a + b)  ·  x² + (p+q)x + pq = (x+p)(x+q)","rule":"Buscá primero un factor común; después fijate si aparece un trinomio o diferencia de cuadrados.","q":[["6x + 12","6(x+2)|6(x+12)|x(6+12)|2(6x+2)",0,"Ambos términos son múltiplos de 6.","Sacá 6 fuera del paréntesis.","6x+12 = 6(x+2)."],["15x² − 10x","5(3x²−2)|5x(3x−2)|x(15x−10)|5x(3x+2)",1,"Hay un factor numérico y una x en común.","Sacá 5x.","15x²−10x = 5x(3x−2)."],["18a²b + 12ab²","6a(3ab+2b²)|6b(3a²+2ab)|6ab(3a+2b)|3ab(6a+2b)",2,"Encontrá el factor que comparten los dos monomios.","Factor común máximo: 6ab.","18a²b+12ab² = 6ab(3a+2b)."],["x² + 7x + 12","(x+2)(x+6)|(x+1)(x+12)|(x−3)(x−4)|(x+3)(x+4)",3,"Buscá dos números cuya suma sea 7.","Y cuyo producto sea 12.","(x+3)(x+4) da x²+7x+12."],["x² − 9","(x−3)(x+3)|(x−9)(x+1)|(x−3)²|(x+3)²",0,"Es una diferencia de cuadrados.","9 = 3².","x²−9 = (x−3)(x+3)."],["x² − 5x + 6","(x−1)(x−6)|(x−2)(x−3)|(x+2)(x+3)|(x−1)(x−5)",1,"Buscá dos números cuyo producto sea +6.","Y cuya suma sea −5.","x²−5x+6 = (x−2)(x−3)."],["4x² − 25","(4x−5)(x+5)|(2x−5)²|(2x−5)(2x+5)|(4x−25)(x+1)",2,"Identificá dos cuadrados.","4x² = (2x)² y 25 = 5².","4x²−25 = (2x−5)(2x+5)."],["2x² + 7x + 3","(2x+3)(x+1)|(x+3)(2x+3)|(2x−1)(x−3)|(2x+1)(x+3)",3,"Probá dos binomios, uno con 2x y otro con x.","Los constantes deben multiplicarse y dar 3.","(2x+1)(x+3) = 2x²+7x+3."],["x² + 2x − 15","(x+5)(x−3)|(x−5)(x+3)|(x+5)(x+3)|(x−1)(x+15)",0,"El producto de los números es −15.","La suma es +2.","x²+2x−15 = (x+5)(x−3)."],["3x² − 12x","3(x²−4x)|3x(x−4)|x(3x−4)|3x(x+4)",1,"Buscá factor común antes de cualquier fórmula.","Tanto 3x² como −12x son múltiplos de 3x.","3x²−12x = 3x(x−4)."],["x² − 6x + 9","(x−9)(x+1)|(x−3)(x+3)|(x−3)²|(x+3)²",2,"Es un trinomio cuadrado perfecto.","La mitad de −6 es −3.","x²−6x+9 = (x−3)²."],["6x² − x − 2","(6x−2)(x+1)|(2x−2)(3x+1)|(3x+2)(2x−1)|(3x−2)(2x+1)",3,"Buscá dos binomios de coeficientes 3x y 2x.","Los términos cruzados deben sumar −x.","(3x−2)(2x+1) = 6x²−x−2."]]},{"id":"quad","name":"Quadratic equations","es":"Ecuaciones cuadráticas","formula":"ax² + bx + c = 0     x = (−b ± √(b²−4ac)) / (2a)","rule":"Igualá a cero, factorizá si podés y comprobá las raíces. Si no, usá la fórmula general.","q":[["x² − 5x + 6 = 0","x=2 o x=3|x=−2 o x=−3|x=1 o x=6|x=−1 o x=−6",0,"Buscá factores del término independiente.","(x−2)(x−3)=0.","Raíces: 2 y 3."],["x² − 9 = 0","x=0 o x=9|x=−3 o x=3|x=3 solamente|x=−9 o x=9",1,"Sumá 9 a ambos lados o usá cuadrados.","x²=9.","Raíces: −3 y 3."],["x² + 6x + 9 = 0","x=3 o x=−3|x=0 o x=−6|x=−3 (doble)|x=9 (doble)",2,"Buscá un cuadrado perfecto.","(x+3)²=0.","Única raíz real, doble: x=−3."],["x² + x − 12 = 0","x=−3 o x=4|x=−4 o x=−3|x=3 o x=4|x=−4 o x=3",3,"Buscá dos números que multipliquen −12.","Y que sumen 1.","(x+4)(x−3)=0. Raíces: −4 y 3."],["2x² − 8x = 0","x=0 o x=4|x=−4 o x=4|x=2 o x=4|x=−2 o x=0",0,"Sacá factor común.","2x(x−4)=0.","Raíces: 0 y 4."],["x² − 2x − 15 = 0","x=−5 o x=3|x=−3 o x=5|x=3 o x=5|x=−5 o x=−3",1,"Buscá factores de −15.","La suma de los dos números debe ser −2.","(x−5)(x+3)=0. Raíces: 5 y −3."],["2x² − 5x − 3 = 0","x=−3 o x=½|x=−½ o x=−3|x=−½ o x=3|x=½ o x=3",2,"Intentá factorizar con coeficiente principal 2.","(2x+1)(x−3)=0.","Raíces: −½ y 3."],["x² − 8x + 16 = 0","x=−4 o x=4|x=−4 (doble)|x=8 (doble)|x=4 (doble)",3,"Reconocé un trinomio cuadrado perfecto.","(x−4)²=0.","Raíz doble: x=4."],["3x² − 12 = 0","x=−2 o x=2|x=0 o x=4|x=−4 o x=4|x=2 solamente",0,"Dividí por 3.","x²=4.","Raíces: −2 y 2."],["x² + 2x + 5 = 0","x=−1 o x=5|No tiene raíces reales|x=−5 o x=1|x=−2 (doble)",1,"Usá discriminante b²−4ac.","4−20 = −16.","Como Δ\u003c0, no existen soluciones reales."],["3x² − x − 2 = 0","x=−1 o x=2/3|x=−2 o x=1/3|x=−2/3 o x=1|x=−1/3 o x=2",2,"Probá factorizar en dos binomios.","(3x+2)(x−1)=0.","Raíces: −2/3 y 1."],["2x² − 7x + 3 = 0","x=−½ o x=−3|x=−3 o x=½|x=−½ o x=3|x=½ o x=3",3,"Buscá binomios con 2x y x.","(2x−1)(x−3)=0.","Raíces: ½ y 3."]]}];
+const BANK=[{"id":"index","name":"Index laws","es":"Leyes de los exponentes","formula":"aᵐ · aⁿ = aᵐ⁺ⁿ  ·  aᵐ/aⁿ = aᵐ⁻ⁿ  ·  (aᵐ)ⁿ = aᵐⁿ","rule":"Elegí la regla de potencias antes de operar. Si aparece exponente negativo, expresalo como fracción.","q":[["x² · x⁵","x¹⁰|x³|x⁷|x⁵",2,"Misma base: los exponentes se suman.","2 + 5 = 7.","x² · x⁵ = x⁷.",3],["x⁸ ÷ x³","x⁵|x¹¹|x⁴|x⁶",0,"Dividir potencias de igual base exige restar exponentes.","8 − 3 = 5.","x⁸/x³ = x⁵.",1],["(x³)⁴","x⁷|x⁸|x¹⁶|x¹²",3,"Una potencia de otra potencia multiplica exponentes.","3 × 4 = 12.","(x³)⁴ = x¹².",0],["(2x²)(3x⁴)","5x⁶|6x⁶|6x⁸|6x²",1,"Separá coeficientes y potencias de x.","2 × 3 = 6; 2 + 4 = 6.","(2x²)(3x⁴) = 6x⁶.",2],["3x⁰ + 2x²   (x ≠ 0)","5x²|3x + 2x²|3 + 2x|3 + 2x²",3,"Aplicá primero la regla de exponente cero.","x⁰ vale 1; conservá el término 2x².","3x⁰ + 2x² = 3 + 2x².",0],["x⁻²","−x²|−1/x²|1/x²|1/(2x)",2,"Un exponente negativo invierte la base.","El signo menos pertenece al exponente, no al valor.","x⁻² = 1/x².",3],["3² · 3³","81|243|729|216",1,"Misma base: sumá exponentes.","3⁵ = 3 × 3 × 3 × 3 × 3.","3²·3³ = 3⁵ = 243.",2],["(2a³)²","4a⁶|2a⁶|4a⁵|4a⁹",0,"El exponente externo afecta al coeficiente y a la letra.","2² = 4 y (a³)² = a⁶.","(2a³)² = 4a⁶.",1],["x⁵ ÷ x⁷","x²|−1/x²|1/x²|1/x¹²",2,"Restá exponentes; después convertí el negativo.","5 − 7 = −2.","x⁵/x⁷ = x⁻² = 1/x².",3],["(a²b³)²","a⁴b⁵|a⁴b⁶|a²b⁶|a⁶b⁵",1,"La potencia se distribuye sobre ambos factores.","a: 2 × 2; b: 3 × 2.","(a²b³)² = a⁴b⁶.",2],["16¹ᐟ²","4|±4|8|2",0,"Un exponente 1/2 significa raíz cuadrada.","¿Qué número positivo al cuadrado da 16?","16¹ᐟ² = √16 = 4.",1],["(x⁻²)³","−1/x⁶|1/x⁵|x⁶|1/x⁶",3,"Multiplicá los exponentes, incluido el signo negativo.","−2 × 3 = −6.","(x⁻²)³ = x⁻⁶ = 1/x⁶.",0]]},{"id":"sim","name":"Simultaneous equations","es":"Sistemas de ecuaciones","formula":"Elimination: sumá o restá ecuaciones para cancelar una incógnita.","rule":"Encontrá x e y y comprobá los valores sustituyéndolos en las DOS ecuaciones.","q":[["x + y = 9   ·   x − y = 3","x=3, y=6|x=6, y=3|x=5, y=4|x=7, y=2",1,"Sumá las dos ecuaciones.","2x = 12.","x=6; luego y=9−6=3.",2],["2x + y = 11   ·   x − y = 1","x=5, y=1|x=3, y=5|x=2, y=7|x=4, y=3",3,"Sumá para eliminar y.","3x = 12.","x=4, y=3.",0],["x + 2y = 10   ·   x − y = 1","x=4, y=3|x=6, y=2|x=2, y=4|x=8, y=1",0,"Restá la segunda ecuación de la primera.","3y = 9.","y=3, x=4.",1],["3x + y = 13   ·   x + y = 7","x=4, y=3|x=2, y=7|x=3, y=4|x=5, y=2",2,"Restá las ecuaciones para cancelar y.","2x = 6.","x=3, y=4.",3],["2x + 3y = 13   ·   x + y = 5","x=2, y=3|x=3, y=2|x=1, y=4|x=4, y=1",0,"Multiplicá la segunda ecuación por 2.","Restá y obtené y=3.","x=2, y=3.",1],["4x − y = 5   ·   x + y = 5","x=1, y=4|x=3, y=2|x=2, y=3|x=4, y=1",2,"Sumá las ecuaciones.","5x = 10.","x=2, y=3.",3],["3x + 2y = 16   ·   x − y = 2","x=2, y=5|x=0, y=8|x=6, y=−1|x=4, y=2",3,"Multiplicá la segunda por 2 y sumá.","5x = 20.","x=4, y=2.",0],["2x − y = 1   ·   x + 2y = 8","x=3, y=5|x=2, y=3|x=4, y=7|x=1, y=1",1,"Despejá y en la primera ecuación.","y = 2x − 1.","x=2, y=3.",2],["5x + 2y = 19   ·   x + y = 5","x=2, y=3|x=1, y=4|x=4, y=1|x=3, y=2",3,"Multiplicá la segunda ecuación por 2.","Restá: 3x = 9.","x=3, y=2.",0],["2x + 5y = 19   ·   x + y = 5","x=2, y=3|x=3, y=2|x=4, y=1|x=1, y=4",0,"Multiplicá la segunda ecuación por 2.","Restá: 3y = 9.","x=2, y=3.",1],["3x − 2y = 0   ·   x + y = 5","x=4, y=1|x=2, y=3|x=3, y=2|x=1, y=4",1,"Despejá y = 5 − x.","3x − 2(5 − x) = 0.","x=2, y=3.",2],["4x + 3y = 25   ·   2x − y = 5","x=2, y=−1|x=5, y=5|x=4, y=3|x=3, y=4",2,"Multiplicá la segunda ecuación por 3.","Sumá: 10x = 40.","x=4, y=3.",3]]},{"id":"factor","name":"Factorization","es":"Factorización","formula":"a² − b² = (a − b)(a + b)  ·  x² + (p+q)x + pq = (x+p)(x+q)","rule":"Buscá primero un factor común; después fijate si aparece un trinomio o diferencia de cuadrados.","q":[["6x + 12","6(x+12)|3(2x+2)|2(3x+12)|6(x+2)",3,"Ambos términos son múltiplos de 6.","Sacá 6 fuera del paréntesis.","6x+12 = 6(x+2).",0],["15x² − 10x","5x(3x+2)|5x(3x−2)|5x(3x−10)|5(3x²−2)",1,"Hay un factor numérico y una x en común.","Sacá 5x.","15x²−10x = 5x(3x−2).",2],["18a²b + 12ab²","6ab(3a+2ab)|6ab(3a+2)|6ab(3a+2b)|6ab(3+2b)",2,"Encontrá el factor que comparten los dos monomios.","Factor común máximo: 6ab.","18a²b+12ab² = 6ab(3a+2b).",3],["x² + 7x + 12","(x+3)(x+4)|(x+2)(x+6)|(x−3)(x−4)|(x+1)(x+12)",0,"Buscá dos números cuya suma sea 7.","Y cuyo producto sea 12.","(x+3)(x+4) da x²+7x+12.",1],["x² − 9","(x−3)²|(x+3)²|(x−3)(x+3)|(x−9)(x+1)",2,"Es una diferencia de cuadrados.","9 = 3².","x²−9 = (x−3)(x+3).",3],["x² − 5x + 6","(x−1)(x−6)|(x+2)(x+3)|(x−1)(x−5)|(x−2)(x−3)",3,"Buscá dos números cuyo producto sea +6.","Y cuya suma sea −5.","x²−5x+6 = (x−2)(x−3).",0],["4x² − 25","(2x−5)(2x+5)|(4x−5)(x+5)|(2x−5)²|(2x+5)²",0,"Identificá dos cuadrados.","4x² = (2x)² y 25 = 5².","4x²−25 = (2x−5)(2x+5).",1],["2x² + 7x + 3","(2x+3)(x+1)|(2x+1)(x+3)|(x+3)(2x+3)|(2x−1)(x−3)",1,"Probá dos binomios, uno con 2x y otro con x.","Los constantes deben multiplicarse y dar 3.","(2x+1)(x+3) = 2x²+7x+3.",2],["x² + 2x − 15","(x−5)(x+3)|(x+5)(x−3)|(x+5)(x+3)|(x−1)(x+15)",1,"El producto de los números es −15.","La suma es +2.","x²+2x−15 = (x+5)(x−3).",2],["3x² − 12x","3x(x+4)|3x(3x−4)|3x(x−4)|x(3x−4)",2,"Buscá factor común antes de cualquier fórmula.","Tanto 3x² como −12x son múltiplos de 3x.","3x²−12x = 3x(x−4).",3],["x² − 6x + 9","(x+3)²|(x−3)(x+3)|(x−9)(x+1)|(x−3)²",3,"Es un trinomio cuadrado perfecto.","La mitad de −6 es −3.","x²−6x+9 = (x−3)².",0],["6x² − x − 2","(3x−2)(2x+1)|(3x+2)(2x−1)|(3x−1)(2x+2)|(3x−2)(2x−1)",0,"Buscá dos binomios de coeficientes 3x y 2x.","Los términos cruzados deben sumar −x.","(3x−2)(2x+1) = 6x²−x−2.",1]]},{"id":"quad","name":"Quadratic equations","es":"Ecuaciones cuadráticas","formula":"ax² + bx + c = 0     x = (−b ± √(b²−4ac)) / (2a)","rule":"Igualá a cero, factorizá si podés y comprobá las raíces. Si no, usá la fórmula general.","q":[["x² − 5x + 6 = 0","x=−2 o x=−3|x=2 o x=3|x=1 o x=6|x=−1 o x=−6",1,"Buscá factores del término independiente.","(x−2)(x−3)=0.","Raíces: 2 y 3.",2],["x² − 9 = 0","x=−3 o x=3|x=3 solamente|x=−3 solamente|x=−9 o x=9",0,"Sumá 9 a ambos lados o usá cuadrados.","x²=9.","Raíces: −3 y 3.",1],["x² + 6x + 9 = 0","x=3 (doble)|x=−3 o x=3|x=0 o x=−6|x=−3 (doble)",3,"Buscá un cuadrado perfecto.","(x+3)²=0.","Única raíz real, doble: x=−3.",0],["x² + x − 12 = 0","x=−3 o x=4|x=−4 o x=−3|x=−4 o x=3|x=3 o x=4",2,"Buscá dos números que multipliquen −12.","Y que sumen 1.","(x+4)(x−3)=0. Raíces: −4 y 3.",3],["2x² − 8x = 0","x=−4 o x=4|x=2 o x=4|x=0 o x=4|x=0 o x=8",2,"Sacá factor común.","2x(x−4)=0.","Raíces: 0 y 4.",3],["x² − 2x − 15 = 0","x=−5 o x=3|x=−3 o x=5|x=3 o x=5|x=−5 o x=−3",1,"Buscá factores de −15.","La suma de los dos números debe ser −2.","(x−5)(x+3)=0. Raíces: 5 y −3.",2],["2x² − 5x − 3 = 0","x=−½ o x=3|x=−3 o x=½|x=−½ o x=−3|x=½ o x=3",0,"Intentá factorizar con coeficiente principal 2.","(2x+1)(x−3)=0.","Raíces: −½ y 3.",1],["x² − 8x + 16 = 0","x=−4 o x=4|x=−4 (doble)|x=8 (doble)|x=4 (doble)",3,"Reconocé un trinomio cuadrado perfecto.","(x−4)²=0.","Raíz doble: x=4.",0],["3x² − 12 = 0","x=0 o x=4|x=−2 o x=2|x=−4 o x=4|x=2 solamente",1,"Dividí por 3.","x²=4.","Raíces: −2 y 2.",2],["x² + 2x + 5 = 0","x=−1 o x=5|x=−5 o x=1|x=−2 (doble)|No tiene raíces reales",3,"Usá discriminante b²−4ac.","4−20 = −16.","Como Δ\u003c0, no existen soluciones reales.",0],["3x² − x − 2 = 0","x=−1 o x=2/3|x=−2 o x=1/3|x=−2/3 o x=1|x=−1/3 o x=2",2,"Probá factorizar en dos binomios.","(3x+2)(x−1)=0.","Raíces: −2/3 y 1.",3],["2x² − 7x + 3 = 0","x=½ o x=3|x=−½ o x=−3|x=−3 o x=½|x=−½ o x=3",0,"Buscá binomios con 2x y x.","(2x−1)(x−3)=0.","Raíces: ½ y 3.",1]]}];
 const ALL=BANK.flatMap(s=>s.q.map((a,j)=>({
  topic:s.id,section:s,local:j,id:s.id+"-"+(j+1),
  question:a[0],options:a[1].split("|"),answer:a[2],
- hints:[s.rule,a[3],a[4]],explanation:a[5]
+ hints:[s.rule,a[3],a[4]],explanation:a[5],trap:a[6]
 })));
 const KEY="jose-algebra-recovery-48-v1";
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-let state={responses:{},position:0,chosen:null,hint:0,started:Date.now(),showReport:false};
+let state={responses:{},position:0,chosen:null,hint:0,started:Date.now(),showReport:false,entryCooldownUntil:0,metaVersion:3,streak:0,lastCompletedId:null};
 try{const old=JSON.parse(localStorage.getItem(KEY)||"null");if(old&&typeof old==="object"&&old.responses&&typeof old.responses==="object")state={...state,...old};}catch(e){}
 if(!Number.isInteger(state.position)||state.position<0||state.position>=ALL.length)state.position=0;
-let view="home",notice="",noticeBad=false,gateTimer=null;
+if(state.metaVersion!==3){
+ for(const q of ALL){
+  const r=state.responses[q.id];if(!r)continue;
+  const oldIndex=q.local%4;
+  if(r.done&&r.selected===oldIndex)r.selected=q.answer;
+  if(!r.done)r.selected=null;
+  if(!Number.isInteger(r.errors))r.errors=r.done?Math.max(0,(r.tries||0)-1):(r.tries||0);
+  r.cooldownUntil=0;
+ }
+ state.metaVersion=3;state.entryCooldownUntil=0;state.streak=0;state.lastCompletedId=null;
+ try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}
+}
+let view="home",notice="",noticeBad=false,gateTimer=null,stickerTimer=null,lastSticker="",stickerCount=0;
+function clearSticker(){
+ if(stickerTimer){clearTimeout(stickerTimer);stickerTimer=null;}
+ const s=$("stickerBurst");if(!s)return;
+ s.hidden=true;s.textContent="";s.className="sticker-burst";
+}
+function showSticker(type,q){
+ const variations={
+  wrong:["🐵","🙊"],trap:["👀","🙈"],repeat:["🙈","🙊"],
+  recovery:["🐒","🐵"],streak:["🦍","🐒"],complete:["🐵","🎉"]
+ };
+ if(!variations[type]||view!=="focus")return;
+ if(q.local>=8&&type==="streak")return;
+ const choices=variations[type],pick=choices[(stickerCount++)%choices.length];
+ const emoji=pick===lastSticker?choices[(stickerCount++)%choices.length]:pick;
+ lastSticker=emoji;
+ clearSticker();
+ const el=$("stickerBurst");
+ el.textContent=emoji;el.hidden=false;
+ el.className="sticker-burst"+(type==="complete"?" complete":"");
+ void el.offsetWidth;
+ el.classList.add("active");
+ stickerTimer=setTimeout(clearSticker,type==="complete"?1600:1200);
+}
 function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
 function record(q){return state.responses[q.id]||{tries:0,hint:0,selected:null,done:false,first:false,review:false};}
 function countDone(qs=ALL){return qs.filter(q=>state.responses[q.id]?.done).length}
 function total(){return {done:countDone(),first:ALL.filter(q=>state.responses[q.id]?.first).length,review:ALL.filter(q=>state.responses[q.id]?.review).length}}
-function setView(v){view=v;document.body.dataset.view=v;$("home").hidden=v!=="home";$("focus").hidden=v!=="focus";$("report").hidden=v!=="report";if(gateTimer){clearTimeout(gateTimer);gateTimer=null;}window.scrollTo(0,0);updateGlobal()}
+function setView(v){clearSticker();view=v;document.body.dataset.view=v;$("home").hidden=v!=="home";$("focus").hidden=v!=="focus";$("report").hidden=v!=="report";if(gateTimer){clearTimeout(gateTimer);gateTimer=null;}window.scrollTo(0,0);updateGlobal()}
 function updateGlobal(){let n=countDone();$("globalNum").textContent=n+" / 48";$("globalLine").style.width=(100*n/48)+"%"}
 function showHome(){setView("home");$("topics").innerHTML=BANK.map(s=>{
  const done=countDone(ALL.filter(q=>q.topic===s.id));
@@ -131,11 +178,17 @@ function openTopic(id){
  const qs=ALL.filter(q=>q.topic===id);
  if(!qs.length)return;
  const next=qs.find(q=>!record(q).done)||qs[0];
- openExercise(ALL.indexOf(next));
+ const prior=ALL[state.position],priorRecord=prior&&record(prior);
+ const wait=!!(prior&&state.lastCompletedId===prior.id&&priorRecord.errors>0&&!next.done);
+ openExercise(ALL.indexOf(next),wait);
 }
-function openExercise(idx){
+function openExercise(idx,waitFromPrevious=false){
  if(idx<0||idx>=ALL.length)return;
- state.position=idx;state.chosen=null;state.hint=0;state.started=Date.now();notice="";noticeBad=false;persist();setView("focus");renderExercise();
+ const q=ALL[idx],r=record(q);
+ state.position=idx;state.chosen=null;state.hint=r.hint||0;state.started=Date.now();
+ state.entryCooldownUntil=waitFromPrevious&&!r.done?Date.now()+10000:0;
+ state.lastCompletedId=null;
+ notice="";noticeBad=false;persist();setView("focus");renderExercise();
 }
 function renderExercise(){
  if(gateTimer){clearTimeout(gateTimer);gateTimer=null;}
@@ -171,10 +224,11 @@ function renderExercise(){
 function updateGate(){
  if(view!=="focus")return;
  const b=$("checkButton");if(!b)return;
- const remaining=Math.max(0,10000-(Date.now()-state.started));
+ const r=record(ALL[state.position]);
+ const remaining=Math.max(0,Math.max(r.cooldownUntil||0,state.entryCooldownUntil||0)-Date.now());
  b.disabled=state.chosen===null||remaining>0;
  b.textContent=remaining>0?"Check · "+Math.ceil(remaining/1000):"Check";
- if(remaining>0){gateTimer=setTimeout(updateGate,Math.min(1000,remaining+60));}
+ if(remaining>0)gateTimer=setTimeout(updateGate,Math.min(1000,remaining+60));
 }
 function select(i){
  if(record(ALL[state.position]).done)return;
@@ -182,13 +236,30 @@ function select(i){
 }
 function check(){
  const q=ALL[state.position],r=record(q);
- if(r.done||state.chosen===null||Date.now()-state.started<10000)return;
- r.tries=(r.tries||0)+1;r.selected=state.chosen;
+ if(r.done||state.chosen===null)return;
+ const blockedUntil=Math.max(r.cooldownUntil||0,state.entryCooldownUntil||0);
+ if(Date.now()<blockedUntil)return;
+ const chosen=state.chosen;
+ r.tries=(r.tries||0)+1;r.selected=chosen;
  r.hint=Math.max(r.hint||0,state.hint);
  if(r.tries>1||r.hint>0)r.review=true;
- if(state.chosen===q.answer){r.done=true;r.first=r.tries===1&&r.hint===0;notice="Correct";noticeBad=false;}
- else{r.review=true;notice="Try again";noticeBad=true;state.chosen=null;}
+ if(chosen===q.answer){
+  r.done=true;r.first=r.tries===1&&r.hint===0;
+  r.cooldownUntil=0;state.lastCompletedId=q.id;
+  if(r.errors>0){
+   state.streak=0;showSticker("recovery",q);
+  }else{
+   state.streak=(state.streak||0)+(r.first?1:0);
+   if(state.streak>0&&state.streak%3===0&&q.local<8)showSticker("streak",q);
+  }
+  notice="Correct";noticeBad=false;
+ }else{
+  r.errors=(r.errors||0)+1;r.review=true;r.cooldownUntil=Date.now()+10000;state.streak=0;
+  const effect=r.errors>1?"repeat":chosen===q.trap?"trap":"wrong";
+  showSticker(effect,q);notice="Try again";noticeBad=true;state.chosen=null;
+ }
  state.responses[q.id]=r;persist();updateGlobal();renderExercise();
+ if(r.done&&q.local===11&&countDone(ALL.filter(a=>a.topic===q.topic))===12)showSticker("complete",q);
 }
 function revealHint(){
  const q=ALL[state.position],r=record(q);if(r.done)return;
@@ -202,9 +273,9 @@ function skip(){
  persist();next();
 }
 function next(){
- const q=ALL[state.position];
+ const q=ALL[state.position],r=record(q);
  if(q.local===11){showHome();return;}
- openExercise(state.position+1);
+ openExercise(state.position+1,!!(r.errors>0));
 }
 function summaryText(){
  const t=total();
