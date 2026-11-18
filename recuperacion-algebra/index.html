@@ -2,77 +2,241 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#f4f2eb">
-<title>José · Recuperación de Álgebra · 48 ejercicios</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f6f5f1">
+<meta name="jose-recovery-build" content="JOSE-RECOVERY-FOCUS-V2-20261118">
+<title>José · Algebra</title>
 <style>
-:root{--bg:#f4f2eb;--ink:#171b1b;--soft:#e7e6de;--muted:#6a706c;--line:#cdd0c6;--green:#246b53;--red:#b83a33;--gold:#b67b27}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:15px}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #368d72;outline-offset:3px}header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:12px 26px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:18px;font-weight:900;letter-spacing:-.055em}.brand small{font-size:10px;font-weight:700;letter-spacing:.18em;color:var(--muted);display:block;margin-top:3px}.topbar{display:flex;align-items:center;gap:12px;min-width:0}.count{font-size:12px;font-weight:800;white-space:nowrap}.track{height:5px;background:#d3d4cd;border-radius:9px;overflow:hidden;width:170px}.track i{display:block;height:100%;background:var(--green);width:0;transition:width .3s}.layout{max-width:1530px;margin:auto;display:grid;grid-template-columns:minmax(240px,1fr) minmax(440px,1.85fr) minmax(205px,.74fr);min-height:calc(100vh - 64px)}aside.left{border-right:1px solid var(--line);padding:34px 27px 40px;position:sticky;top:64px;align-self:start;max-height:calc(100vh - 64px);overflow:auto}.eyebrow{font-size:10px;font-weight:900;letter-spacing:.2em;text-transform:uppercase;color:var(--muted)}h1{font-size:clamp(31px,3.4vw,53px);line-height:1.03;letter-spacing:-.055em;margin:14px 0 16px}h2{font-size:20px;letter-spacing:-.035em}p{line-height:1.53} .muted{color:var(--muted)}.rule{background:#e9eae4;border:1px solid var(--line);padding:19px;border-radius:7px;font-size:16px;line-height:1.75;margin:19px 0;overflow-wrap:anywhere}.topic-nav{display:grid;gap:7px;margin:25px 0}.topic{display:flex;align-items:center;gap:11px;text-align:left;background:transparent;border:1px solid var(--line);border-radius:5px;padding:12px}.topic.active{border-color:var(--ink);background:var(--ink);color:white}.topic b{font-size:13px}.topic span{font-size:11px;display:block;opacity:.7;margin-top:3px}.topic em{margin-left:auto;font-size:11px;font-style:normal}.main{padding:45px clamp(20px,4.5vw,68px) 45px;min-width:0}.micro{display:flex;gap:12px;align-items:center;flex-wrap:wrap;font-size:11px;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.pill{border:1px solid var(--line);border-radius:99px;padding:6px 10px}.question{font-size:clamp(29px,3.5vw,50px);letter-spacing:-.03em;font-weight:600;line-height:1.4;min-height:123px;margin:27px 0 23px;white-space:pre-line}.subtitle{font-size:13px;color:var(--muted);margin:0 0 15px}.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px}.answer{display:flex;gap:12px;align-items:center;background:#fff;border:1px solid #c4c8c0;border-radius:7px;padding:18px 14px;text-align:left;min-height:72px;line-height:1.4;font-size:clamp(15px,1.3vw,18px)}.answer .letter{border:1px solid #b6bcb4;display:grid;place-items:center;border-radius:50%;width:25px;min-width:25px;height:25px;font-size:11px;font-weight:900}.answer.selected{background:#ebf3eb;border-color:var(--green);box-shadow:inset 0 0 0 1px var(--green)}.answer.selected .letter{background:var(--green);color:white;border-color:var(--green)}.answer:disabled{cursor:default;opacity:.7}.answer.correct{border-color:var(--green);background:#e0ede5;opacity:1}.answer.wrong{border-color:var(--red);background:#f8e5e1;opacity:1}.controls{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px}.btn{border-radius:6px;padding:14px 19px;font-weight:800;border:1px solid var(--ink);background:transparent;color:var(--ink)}.btn.primary{background:var(--ink);color:white}.btn.primary:disabled{opacity:.42;cursor:not-allowed}.btn.light{border-color:var(--line)}.feedback{padding:16px 18px;margin-top:18px;border-left:4px solid var(--green);background:#e9f0e7;line-height:1.6}.feedback.bad{border-color:var(--red);background:#f9e9e5}.hint{border:1px solid var(--gold);background:#faf2dd;padding:13px 16px;margin-top:10px;border-radius:5px}.foot{text-align:left;color:var(--muted);font-size:11px;margin-top:45px;line-height:1.5}.right{padding:35px 18px 25px;border-left:1px solid var(--line);position:sticky;top:64px;align-self:start;max-height:calc(100vh - 64px);overflow:auto}.right h2{font-size:14px;margin:0 0 15px}.tiny{font-size:11px;line-height:1.4;color:var(--muted)}.grid-num{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px}.num{aspect-ratio:1/1;border:1px solid var(--line);background:transparent;border-radius:4px;font-size:11px;font-weight:800}.num.current{background:var(--ink);color:white}.num.ok{border-color:var(--green);color:var(--green);background:#e4efe5}.num.review{border-color:var(--gold);color:#8a651f;background:#faf1d7}.num .dot{display:none}.statrow{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:13px 0;font-size:12px}.statrow b{font-size:17px}.rightbutton{width:100%;text-align:center;border:1px solid var(--line);padding:12px 8px;margin-top:12px;background:transparent;border-radius:5px;font-weight:700;font-size:12px}.done-screen{max-width:680px;margin:auto}.bigstat{font-size:75px;line-height:1;letter-spacing:-.08em;font-weight:900;margin:25px 0}.receipt{white-space:pre-wrap;font-family:monospace;font-size:12px;background:#fff;border:1px solid var(--line);padding:15px;word-break:break-word}.tag{font-size:11px;font-weight:900;letter-spacing:.08em;color:var(--green)}@media(max-width:1030px){.layout{grid-template-columns:240px minmax(0,1fr)}.right{position:static;grid-column:1/3;max-height:none;border-left:0;border-top:1px solid var(--line);padding:20px 30px}.grid-num{grid-template-columns:repeat(12,1fr)}.left{max-height:none!important;position:static!important}.main{padding:40px 32px}}@media(max-width:680px){header{padding:11px 16px}.brand{font-size:16px}.track{width:75px}.layout{display:block}.left{padding:20px!important;border-right:0!important;border-bottom:1px solid var(--line)}h1{font-size:34px;margin:8px 0}.rule{padding:11px 14px;margin:10px 0;font-size:13px}.topic-nav{display:grid;grid-template-columns:1fr 1fr;margin:14px 0;gap:6px}.topic{padding:10px 8px}.topic b{font-size:11px}.topic span{display:none}.main{padding:24px 17px}.question{min-height:0;font-size:32px;margin:22px 0}.answers{grid-template-columns:1fr}.answer{min-height:58px;padding:12px}.right{padding:18px;border-left:0}.grid-num{grid-template-columns:repeat(8,1fr)}.btn{padding:12px 14px}.count{font-size:11px}}
+:root{--paper:#f6f5f1;--ink:#171a18;--line:#d9dad5;--muted:#7b807b;--okay:#236448;--bad:#9a3831}
+*{box-sizing:border-box}html,body{min-height:100%;margin:0}
+body{background:var(--paper);color:var(--ink);font-family:Arial,Helvetica,sans-serif;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
+button:focus-visible{outline:3px solid #5f9d86;outline-offset:4px}
+[hidden]{display:none!important}
+header{height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px;max-width:1250px;margin:auto;padding:0 clamp(20px,4vw,52px)}
+header::after{content:"";position:absolute;left:0;right:0;top:75px;height:1px;background:var(--line)}
+.logo{font-size:25px;font-weight:850;letter-spacing:-.075em}
+.global{display:flex;align-items:center;gap:18px}
+.global-num{font-size:13px;font-weight:700;letter-spacing:-.025em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.global-line{width:92px;height:2px;background:var(--line);overflow:hidden}
+.global-line span{display:block;width:0;height:100%;background:var(--ink);transition:width .25s}
+#home{width:min(100%,750px);min-height:calc(100svh - 76px);margin:auto;padding:clamp(36px,8vh,90px) 24px;display:flex;flex-direction:column;justify-content:center;gap:46px}
+.home-name{font-size:clamp(64px,13vw,118px);font-weight:800;line-height:1;letter-spacing:-.095em;margin:0}
+.topics{display:grid;grid-template-columns:1fr;gap:0}
+.topic-btn{display:grid;grid-template-columns:minmax(0,1fr) auto 22px;align-items:center;gap:18px;min-height:88px;padding:16px 0;border:0;border-bottom:1px solid var(--line);background:transparent;text-align:left}
+.topic-btn:first-child{border-top:1px solid var(--line)}
+.topic-btn:hover .topic-name,.topic-btn:focus-visible .topic-name{transform:translateX(5px)}
+.topic-name{display:block;font-size:clamp(21px,3.3vw,28px);letter-spacing:-.055em;font-weight:650;transition:transform .16s}
+.topic-num{color:var(--muted);font-size:13px;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.topic-arrow{font-size:22px;font-weight:400;color:var(--muted);text-align:right}
+.bottom-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:24px}
+.subtle-btn{border:0;background:transparent;padding:8px 0;color:var(--muted);font-size:12px;text-decoration:underline;text-underline-offset:4px}
+.subtle-btn:hover{color:var(--ink)}
+#focus{min-height:calc(100svh - 76px);padding:0 22px;display:flex;flex-direction:column}
+.focus-top{width:min(100%,780px);margin:0 auto;display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:14px;height:78px}
+.back{width:42px;height:42px;border:0;background:transparent;display:grid;place-items:center;font-size:25px;line-height:1;border-radius:50%}
+.back:hover{background:#eaeae4}
+.focus-title{font-size:15px;font-weight:700;letter-spacing:-.035em}
+.focus-index{font-size:12px;color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums}
+.focus-stage{width:min(100%,780px);height:2px;background:var(--line);margin:0 auto;overflow:hidden}
+.focus-stage span{height:100%;background:var(--ink);display:block;transition:width .25s}
+.focus-middle{width:min(100%,700px);flex:1;min-height:0;margin:0 auto;display:flex;flex-direction:column;justify-content:center;padding:28px 0 58px}
+.math{font-size:clamp(32px,5.6vw,62px);font-weight:500;letter-spacing:-.045em;line-height:1.45;white-space:pre-line;overflow-wrap:anywhere;margin:0 0 clamp(28px,5vh,48px);min-height:1.5em}
+.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.answer{background:transparent;border:1px solid #c9cbc6;border-radius:8px;padding:19px 18px;display:flex;align-items:center;min-height:88px;gap:14px;text-align:left;transition:background .14s,border-color .14s;min-width:0}
+.answer .letter{width:30px;height:30px;flex:0 0 30px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700}
+.answer .value{font-size:clamp(17px,2.5vw,23px);letter-spacing:-.025em;line-height:1.35;overflow-wrap:anywhere}
+.answer:hover:not(:disabled){border-color:var(--ink)}
+.answer.selected{background:var(--ink);border-color:var(--ink);color:white}
+.answer.selected .letter{border-color:#737976}
+.answer.correct{background:#e3ede4;border-color:#84a897;color:var(--okay)}
+.answer.incorrect{border-color:#cba39f;background:#f4e9e7;color:var(--bad)}
+.answer:disabled{cursor:default}
+.controls{display:flex;align-items:center;gap:18px;margin-top:25px;min-height:58px}
+.primary{background:var(--ink);border:1px solid var(--ink);border-radius:7px;color:white;font-weight:700;font-size:14px;min-width:156px;min-height:54px;padding:13px 26px}
+.primary:disabled{opacity:.38;cursor:not-allowed}
+.secondary{border:0;background:none;padding:15px 2px;color:var(--muted);font-weight:600;font-size:13px}
+.secondary:hover{color:var(--ink)}
+.feedback{font-size:13px;font-weight:700;color:var(--okay);margin-top:12px;min-height:18px}
+.feedback.bad{color:var(--bad)}
+.hint-text{font-size:13px;color:#565c57;line-height:1.6;border-top:1px solid var(--line);padding-top:14px;margin-top:5px}
+#report{min-height:calc(100svh - 76px);padding:42px 24px;display:flex;flex-direction:column;justify-content:center;width:min(100%,660px);margin:auto}
+.report-title{font-size:clamp(40px,7vw,73px);letter-spacing:-.07em;font-weight:750;line-height:1.1;margin:20px 0}
+.report-total{font-size:clamp(60px,12vw,108px);font-weight:800;letter-spacing:-.08em;margin:12px 0 26px}
+.report-total small{font-size:18px;color:var(--muted);letter-spacing:0}
+.report-line{display:flex;justify-content:space-between;gap:12px;border-top:1px solid var(--line);padding:18px 0;font-size:16px}
+.report-line span:last-child{font-weight:700}
+.report-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+#reportNote{font-size:12px;color:var(--muted);margin-top:18px}
+@media(min-width:1000px){#focus{padding:0 40px}.focus-middle{padding-bottom:76px}}
+@media(max-width:680px){
+ header{height:66px;padding:0 20px}.logo{font-size:21px}header::after{top:65px}.global-line{width:62px}.global{gap:12px}
+ #home{min-height:calc(100svh - 66px);padding:30px 23px;gap:38px}.home-name{font-size:clamp(66px,17vw,100px)}
+ .topic-btn{min-height:77px;gap:12px}.topic-name{font-size:23px}.topic-num{font-size:12px}
+ #focus{min-height:calc(100svh - 66px);padding:0 18px}
+ .focus-top{height:70px;gap:10px;grid-template-columns:38px 1fr auto}
+ .back{width:38px;height:38px}.focus-title{font-size:15px}
+ .focus-middle{padding:24px 0 40px}
+ .math{font-size:clamp(31px,8.6vw,50px);margin-bottom:27px;min-height:0}
+ .answers{grid-template-columns:1fr;gap:9px}
+ .answer{min-height:65px;padding:12px 15px;gap:13px}
+ .answer .value{font-size:20px}
+ .controls{margin-top:22px;min-height:55px}
+ .primary{min-height:51px;min-width:146px}
+ #report{min-height:calc(100svh - 66px)}
+}
+@media(max-width:370px){.topic-name{font-size:20px}.answer{min-height:60px}.math{font-size:30px}.focus-middle{padding-bottom:22px}}
+@media(max-height:650px){.focus-middle{justify-content:flex-start;padding-top:22px}.math{margin-bottom:19px}.answer{min-height:58px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 </style>
 </head>
 <body>
-<header><div class="brand">JOSÉ <small>MATHEMATICS · RECOVERY</small></div><div class="topbar"><div class="count" id="topCount">0 / 48</div><div class="track"><i id="topBar"></i></div></div></header>
-<div class="layout">
-<aside class="left">
-<div class="eyebrow">IGCSE · EXAM PREPARATION</div>
-<h1 id="topicTitle">Recuperación de álgebra</h1>
-<p class="muted" id="topicDesc">48 ejercicios para preparar la acreditación de matemática.</p>
-<div class="eyebrow">Recordatorio</div><div class="rule" id="topicRule"></div>
-<p class="tiny" id="topicMethod"></p><div class="topic-nav" id="topics"></div>
-<p class="tiny">No se corrige al tocar una opción: elegís una respuesta y después presionás <strong>Comprobar</strong>. Se guarda el avance en este dispositivo.</p>
-</aside>
-<main class="main" id="main" aria-live="polite"></main>
-<aside class="right">
-<h2>Tu recorrido</h2><div class="eyebrow" id="rightTopic">12 ejercicios</div><div class="grid-num" id="numbers"></div>
-<div style="margin-top:26px" class="eyebrow">Progreso global</div>
-<div class="statrow"><span>Resueltos</span><b id="statDone">0</b></div>
-<div class="statrow"><span>Correctos al primer intento</span><b id="statPerfect">0</b></div>
-<div class="statrow"><span>Para repasar</span><b id="statReview">0</b></div>
-<button class="rightbutton" id="finish">Ver informe / Copiar resultado</button>
-<button class="rightbutton" id="reset">Reiniciar progreso</button>
-</aside>
-</div>
+<header>
+<div class="logo">JOSÉ</div>
+<div class="global" aria-label="Progreso global"><span class="global-num" id="globalNum">0 / 48</span><div class="global-line" aria-hidden="true"><span id="globalLine"></span></div></div>
+</header>
+<main id="home"><h1 class="home-name">Mathematics.</h1><div class="topics" id="topics"></div><div class="bottom-actions"><button class="subtle-btn" id="resultsButton" hidden>Results</button></div></main>
+<main id="focus" hidden><div class="focus-top"><button class="back" id="backButton" aria-label="Volver a temas">←</button><div class="focus-title" id="focusTitle"></div><div class="focus-index" id="focusIndex"></div></div><div class="focus-stage" aria-hidden="true"><span id="focusLine"></span></div><section class="focus-middle"><h1 class="math" id="question"></h1><div class="answers" id="answers" role="group" aria-label="Respuestas"></div><div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div><div class="hint-text" id="hintText" hidden></div><div class="controls" id="controls"></div></section></main>
+<main id="report" hidden><button class="secondary" id="reportBack" style="text-align:left;align-self:flex-start">← Back</button><h1 class="report-title">Results.</h1><div class="report-total" id="reportTotal"></div><div id="reportTopics"></div><div class="report-actions"><button class="primary" id="copyResults">Copy results</button><button class="secondary" id="returnHome">Home</button></div><div id="reportNote"></div></main>
 <script>
 const BANK=[{"id":"index","name":"Index laws","es":"Leyes de los exponentes","formula":"aᵐ · aⁿ = aᵐ⁺ⁿ  ·  aᵐ/aⁿ = aᵐ⁻ⁿ  ·  (aᵐ)ⁿ = aᵐⁿ","rule":"Elegí la regla de potencias antes de operar. Si aparece exponente negativo, expresalo como fracción.","q":[["x² · x⁵","x⁷|x¹⁰|x³|2x⁷",0,"Misma base: los exponentes se suman.","2 + 5 = 7.","x² · x⁵ = x⁷."],["x⁸ ÷ x³","x¹¹|x⁵|x²⁴|x³",1,"Dividir potencias de igual base exige restar exponentes.","8 − 3 = 5.","x⁸/x³ = x⁵."],["(x³)⁴","x⁷|4x³|x¹²|x⁸",2,"Una potencia de otra potencia multiplica exponentes.","3 × 4 = 12.","(x³)⁴ = x¹²."],["(2x²)(3x⁴)","5x⁶|6x⁸|6x²|6x⁶",3,"Separá coeficientes y potencias de x.","2 × 3 = 6; 2 + 4 = 6.","(2x²)(3x⁴) = 6x⁶."],["x⁰  (x ≠ 0)","1|0|x|−1",0,"Cualquier base no nula elevada a cero vale lo mismo.","Pensá en x³/x³.","x⁰ = 1."],["x⁻²","−x²|1/x²|x²|−1/x²",1,"Un exponente negativo invierte la base.","El signo menos pertenece al exponente, no al valor.","x⁻² = 1/x²."],["3² · 3³","81|729|243|27",2,"Misma base: sumá exponentes.","3⁵ = 3 × 3 × 3 × 3 × 3.","3²·3³ = 3⁵ = 243."],["(2a³)²","2a⁶|4a⁵|4a³|4a⁶",3,"El exponente externo afecta al coeficiente y a la letra.","2² = 4 y (a³)² = a⁶.","(2a³)² = 4a⁶."],["x⁵ ÷ x⁷","1/x²|x²|x¹²|−x²",0,"Restá exponentes; después convertí el negativo.","5 − 7 = −2.","x⁵/x⁷ = x⁻² = 1/x²."],["(a²b³)²","a⁴b⁵|a⁴b⁶|a⁸b⁶|a²b⁶",1,"La potencia se distribuye sobre ambos factores.","a: 2 × 2; b: 3 × 2.","(a²b³)² = a⁴b⁶."],["16¹ᐟ²","8|256|4|2",2,"Un exponente 1/2 significa raíz cuadrada.","¿Qué número positivo al cuadrado da 16?","16¹ᐟ² = √16 = 4."],["(x⁻²)³","−1/x⁶|1/x⁵|x⁶|1/x⁶",3,"Multiplicá los exponentes, incluido el signo negativo.","−2 × 3 = −6.","(x⁻²)³ = x⁻⁶ = 1/x⁶."]]},{"id":"sim","name":"Simultaneous equations","es":"Sistemas de ecuaciones","formula":"Elimination: sumá o restá ecuaciones para cancelar una incógnita.","rule":"Encontrá x e y y comprobá los valores sustituyéndolos en las DOS ecuaciones.","q":[["x + y = 9   ·   x − y = 3","x=6, y=3|x=3, y=6|x=5, y=4|x=9, y=3",0,"Sumá las dos ecuaciones.","2x = 12.","x=6; luego y=9−6=3."],["2x + y = 11   ·   x − y = 1","x=3, y=5|x=4, y=3|x=5, y=1|x=2, y=7",1,"Sumá para eliminar y.","3x = 12.","x=4, y=3."],["x + 2y = 10   ·   x − y = 1","x=2, y=4|x=6, y=2|x=4, y=3|x=3, y=4",2,"Restá la segunda ecuación de la primera.","3y = 9.","y=3, x=4."],["3x + y = 13   ·   x + y = 7","x=4, y=1|x=2, y=5|x=4, y=3|x=3, y=4",3,"Restá las ecuaciones para cancelar y.","2x = 6.","x=3, y=4."],["2x + 3y = 13   ·   x + y = 5","x=2, y=3|x=3, y=2|x=1, y=4|x=4, y=1",0,"Multiplicá la segunda ecuación por 2.","Restá y obtené y=3.","x=2, y=3."],["4x − y = 5   ·   x + y = 5","x=1, y=4|x=2, y=3|x=3, y=2|x=4, y=1",1,"Sumá las ecuaciones.","5x = 10.","x=2, y=3."],["3x + 2y = 16   ·   x − y = 2","x=2, y=5|x=3, y=4|x=4, y=2|x=5, y=1",2,"Multiplicá la segunda por 2 y sumá.","5x = 20.","x=4, y=2."],["2x − y = 1   ·   x + 2y = 8","x=3, y=5|x=4, y=7|x=1, y=1|x=2, y=3",3,"Despejá y en la primera ecuación.","y = 2x − 1.","x=2, y=3."],["5x + 2y = 19   ·   x + y = 5","x=3, y=2|x=2, y=3|x=1, y=4|x=4, y=1",0,"Multiplicá la segunda ecuación por 2.","Restá: 3x = 9.","x=3, y=2."],["2x + 5y = 19   ·   x + y = 5","x=3, y=2|x=2, y=3|x=4, y=1|x=1, y=4",1,"Multiplicá la segunda ecuación por 2.","Restá: 3y = 9.","x=2, y=3."],["3x − 2y = 0   ·   x + y = 5","x=4, y=1|x=3, y=2|x=2, y=3|x=1, y=4",2,"Despejá y = 5 − x.","3x − 2(5 − x) = 0.","x=2, y=3."],["4x + 3y = 25   ·   2x − y = 5","x=3, y=4|x=5, y=1|x=2, y=5|x=4, y=3",3,"Multiplicá la segunda ecuación por 3.","Sumá: 10x = 40.","x=4, y=3."]]},{"id":"factor","name":"Factorization","es":"Factorización","formula":"a² − b² = (a − b)(a + b)  ·  x² + (p+q)x + pq = (x+p)(x+q)","rule":"Buscá primero un factor común; después fijate si aparece un trinomio o diferencia de cuadrados.","q":[["6x + 12","6(x+2)|6(x+12)|x(6+12)|2(6x+2)",0,"Ambos términos son múltiplos de 6.","Sacá 6 fuera del paréntesis.","6x+12 = 6(x+2)."],["15x² − 10x","5(3x²−2)|5x(3x−2)|x(15x−10)|5x(3x+2)",1,"Hay un factor numérico y una x en común.","Sacá 5x.","15x²−10x = 5x(3x−2)."],["18a²b + 12ab²","6a(3ab+2b²)|6b(3a²+2ab)|6ab(3a+2b)|3ab(6a+2b)",2,"Encontrá el factor que comparten los dos monomios.","Factor común máximo: 6ab.","18a²b+12ab² = 6ab(3a+2b)."],["x² + 7x + 12","(x+2)(x+6)|(x+1)(x+12)|(x−3)(x−4)|(x+3)(x+4)",3,"Buscá dos números cuya suma sea 7.","Y cuyo producto sea 12.","(x+3)(x+4) da x²+7x+12."],["x² − 9","(x−3)(x+3)|(x−9)(x+1)|(x−3)²|(x+3)²",0,"Es una diferencia de cuadrados.","9 = 3².","x²−9 = (x−3)(x+3)."],["x² − 5x + 6","(x−1)(x−6)|(x−2)(x−3)|(x+2)(x+3)|(x−1)(x−5)",1,"Buscá dos números cuyo producto sea +6.","Y cuya suma sea −5.","x²−5x+6 = (x−2)(x−3)."],["4x² − 25","(4x−5)(x+5)|(2x−5)²|(2x−5)(2x+5)|(4x−25)(x+1)",2,"Identificá dos cuadrados.","4x² = (2x)² y 25 = 5².","4x²−25 = (2x−5)(2x+5)."],["2x² + 7x + 3","(2x+3)(x+1)|(x+3)(2x+3)|(2x−1)(x−3)|(2x+1)(x+3)",3,"Probá dos binomios, uno con 2x y otro con x.","Los constantes deben multiplicarse y dar 3.","(2x+1)(x+3) = 2x²+7x+3."],["x² + 2x − 15","(x+5)(x−3)|(x−5)(x+3)|(x+5)(x+3)|(x−1)(x+15)",0,"El producto de los números es −15.","La suma es +2.","x²+2x−15 = (x+5)(x−3)."],["3x² − 12x","3(x²−4x)|3x(x−4)|x(3x−4)|3x(x+4)",1,"Buscá factor común antes de cualquier fórmula.","Tanto 3x² como −12x son múltiplos de 3x.","3x²−12x = 3x(x−4)."],["x² − 6x + 9","(x−9)(x+1)|(x−3)(x+3)|(x−3)²|(x+3)²",2,"Es un trinomio cuadrado perfecto.","La mitad de −6 es −3.","x²−6x+9 = (x−3)²."],["6x² − x − 2","(6x−2)(x+1)|(2x−2)(3x+1)|(3x+2)(2x−1)|(3x−2)(2x+1)",3,"Buscá dos binomios de coeficientes 3x y 2x.","Los términos cruzados deben sumar −x.","(3x−2)(2x+1) = 6x²−x−2."]]},{"id":"quad","name":"Quadratic equations","es":"Ecuaciones cuadráticas","formula":"ax² + bx + c = 0     x = (−b ± √(b²−4ac)) / (2a)","rule":"Igualá a cero, factorizá si podés y comprobá las raíces. Si no, usá la fórmula general.","q":[["x² − 5x + 6 = 0","x=2 o x=3|x=−2 o x=−3|x=1 o x=6|x=−1 o x=−6",0,"Buscá factores del término independiente.","(x−2)(x−3)=0.","Raíces: 2 y 3."],["x² − 9 = 0","x=0 o x=9|x=−3 o x=3|x=3 solamente|x=−9 o x=9",1,"Sumá 9 a ambos lados o usá cuadrados.","x²=9.","Raíces: −3 y 3."],["x² + 6x + 9 = 0","x=3 o x=−3|x=0 o x=−6|x=−3 (doble)|x=9 (doble)",2,"Buscá un cuadrado perfecto.","(x+3)²=0.","Única raíz real, doble: x=−3."],["x² + x − 12 = 0","x=−3 o x=4|x=−4 o x=−3|x=3 o x=4|x=−4 o x=3",3,"Buscá dos números que multipliquen −12.","Y que sumen 1.","(x+4)(x−3)=0. Raíces: −4 y 3."],["2x² − 8x = 0","x=0 o x=4|x=−4 o x=4|x=2 o x=4|x=−2 o x=0",0,"Sacá factor común.","2x(x−4)=0.","Raíces: 0 y 4."],["x² − 2x − 15 = 0","x=−5 o x=3|x=−3 o x=5|x=3 o x=5|x=−5 o x=−3",1,"Buscá factores de −15.","La suma de los dos números debe ser −2.","(x−5)(x+3)=0. Raíces: 5 y −3."],["2x² − 5x − 3 = 0","x=−3 o x=½|x=−½ o x=−3|x=−½ o x=3|x=½ o x=3",2,"Intentá factorizar con coeficiente principal 2.","(2x+1)(x−3)=0.","Raíces: −½ y 3."],["x² − 8x + 16 = 0","x=−4 o x=4|x=−4 (doble)|x=8 (doble)|x=4 (doble)",3,"Reconocé un trinomio cuadrado perfecto.","(x−4)²=0.","Raíz doble: x=4."],["3x² − 12 = 0","x=−2 o x=2|x=0 o x=4|x=−4 o x=4|x=2 solamente",0,"Dividí por 3.","x²=4.","Raíces: −2 y 2."],["x² + 2x + 5 = 0","x=−1 o x=5|No tiene raíces reales|x=−5 o x=1|x=−2 (doble)",1,"Usá discriminante b²−4ac.","4−20 = −16.","Como Δ\u003c0, no existen soluciones reales."],["3x² − x − 2 = 0","x=−1 o x=2/3|x=−2 o x=1/3|x=−2/3 o x=1|x=−1/3 o x=2",2,"Probá factorizar en dos binomios.","(3x+2)(x−1)=0.","Raíces: −2/3 y 1."],["2x² − 7x + 3 = 0","x=−½ o x=−3|x=−3 o x=½|x=−½ o x=3|x=½ o x=3",3,"Buscá binomios con 2x y x.","(2x−1)(x−3)=0.","Raíces: ½ y 3."]]}];
-const ALL=BANK.flatMap(s=>s.q.map((a,j)=>({topic:s.id,section:s,local:j,id:s.id+"-"+(j+1),q:a[0],options:a[1].split("|"),answer:a[2],hints:[s.rule,a[3],a[4]],explanation:a[5]})));
+const ALL=BANK.flatMap(s=>s.q.map((a,j)=>({
+ topic:s.id,section:s,local:j,id:s.id+"-"+(j+1),
+ question:a[0],options:a[1].split("|"),answer:a[2],
+ hints:[s.rule,a[3],a[4]],explanation:a[5]
+})));
 const KEY="jose-algebra-recovery-48-v1";
-const el=id=>document.getElementById(id);
-let data={responses:{},position:0,chosen:null,started:Date.now(),hint:0,showReport:false};
-try{let saved=JSON.parse(localStorage.getItem(KEY)||"null");if(saved&&saved.responses){data=Object.assign(data,saved);}}catch(e){}
-if(data.position<0||data.position>=48)data.position=0;
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}};
-const current=()=>ALL[data.position];
-const rec=()=>data.responses[current().id]||{tries:0,hint:0,selected:null,done:false,first:false,review:false};
-const totals=()=>{let a=Object.values(data.responses);return {done:a.filter(x=>x.done).length,first:a.filter(x=>x.first).length,review:a.filter(x=>x.review).length}};
-function jump(idx){data.position=idx;data.chosen=null;data.started=Date.now();data.hint=0;data.showReport=false;save();render();window.scrollTo({top:0,behavior:"smooth"});}
-function setChoice(i){let r=rec();if(r.done)return;data.chosen=i;save();render();}
-function check(){let q=current(),r=rec();if(r.done||data.chosen===null)return;const elapsed=Date.now()-data.started;if(elapsed<10000){el("feedback").innerHTML="Antes de comprobar, dedicá al menos "+Math.ceil((10000-elapsed)/1000)+" segundos a resolverlo en papel.";el("feedback").className="feedback bad";return;}r.tries++;r.selected=data.chosen;r.hint=Math.max(r.hint,data.hint);r.review=r.review||r.tries>1||r.hint>0;if(data.chosen===q.answer){r.done=true;r.first=r.tries===1&&r.hint===0;}data.responses[q.id]=r;save();render();}
-function hint(){let r=rec();if(r.done)return;data.hint=Math.min(3,Math.max(data.hint,r.hint||0)+1);r.hint=data.hint;r.review=true;data.responses[current().id]=r;save();render();}
-function skip(){let q=current(),r=rec();if(!r.done){r.done=true;r.first=false;r.review=true;r.selected=null;data.responses[q.id]=r;}save();next();}
-function next(){if(data.position===47){data.showReport=true;save();render();window.scrollTo({top:0,behavior:"smooth"});}else jump(data.position+1);}
-function progress(){let t=totals();el("topCount").textContent=t.done+" / 48";el("topBar").style.width=(100*t.done/48)+"%";el("statDone").textContent=t.done;el("statPerfect").textContent=t.first;el("statReview").textContent=t.review;}
-function renderSidebar(){const q=current();el("topicTitle").textContent=q.section.name;el("topicDesc").textContent=q.section.es+" · 12 ejercicios · dificultad progresiva";el("topicRule").textContent=q.section.formula;el("topicMethod").textContent=q.section.rule;el("rightTopic").textContent=q.section.name.toUpperCase();el("topics").innerHTML=BANK.map(s=>{let ds=ALL.filter(a=>a.topic===s.id);let done=ds.filter(a=>data.responses[a.id]?.done).length;return '<button class="topic '+(s.id===q.topic?'active':'')+'" data-topic="'+s.id+'"><div><b>'+s.name+'</b><span>'+s.es+'</span></div><em>'+done+'/12</em></button>';}).join("");
-el("topics").querySelectorAll("[data-topic]").forEach(b=>b.onclick=()=>jump(ALL.findIndex(a=>a.topic===b.dataset.topic)));
-let inTopic=ALL.filter(a=>a.topic===q.topic);el("numbers").innerHTML=inTopic.map(a=>{let idx=ALL.indexOf(a),r=data.responses[a.id];return '<button class="num '+(idx===data.position?'current':'')+' '+(r?.done?(r.review?'review':'ok'):'')+'" data-idx="'+idx+'" aria-label="Ejercicio '+(idx+1)+'">'+(a.local+1)+'</button>';}).join("");el("numbers").querySelectorAll("[data-idx]").forEach(b=>b.onclick=()=>jump(Number(b.dataset.idx)));progress();}
-function receipt(){let t=totals();let parts=BANK.map(s=>s.name+": "+ALL.filter(q=>q.topic===s.id&&data.responses[q.id]?.done).length+"/12").join("\n");let reviewed=ALL.filter(q=>data.responses[q.id]?.review).map(q=>q.id).join(", ")||"Ninguno";return "JOSÉ · RECUPERACIÓN DE ÁLGEBRA\n48 EJERCICIOS · IGCSE\n\n"+parts+"\n\nResueltos: "+t.done+"/48\nCorrectos sin pista al primer intento: "+t.first+"\nPara repasar: "+t.review+"\nIDs para repasar: "+reviewed+"\nFecha: "+new Date().toLocaleDateString("es-AR");}
-function report(){let t=totals();el("main").innerHTML='<div class="done-screen"><div class="eyebrow">RESUMEN DE ESTUDIO</div><h1>Tu trabajo, en números.</h1><p>Este resumen se genera en tu dispositivo. Podés copiarlo y enviárselo a tu profesor.</p><div class="bigstat">'+t.done+'<span style="font-size:20px;letter-spacing:0;color:var(--muted)"> / 48</span></div><div class="tag">'+t.first+' correctos al primer intento · '+t.review+' para repasar</div><h2>Informe</h2><div class="receipt" id="receipt"></div><div class="controls"><button class="btn primary" id="copy">Copiar informe</button><button class="btn" id="back">Volver a practicar</button></div><p class="foot">La práctica guarda el avance localmente. No se envían respuestas a ningún servidor.</p></div>';el("receipt").textContent=receipt();el("copy").onclick=()=>{let v=receipt();if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(v).then(()=>el("copy").textContent="Copiado").catch(()=>fallback(v));}else fallback(v);};el("back").onclick=()=>{data.showReport=false;save();render();};}
-function fallback(v){let a=document.createElement("textarea");a.value=v;document.body.append(a);a.select();document.execCommand("copy");a.remove();el("copy").textContent="Copiado";}
-function renderQuestion(){let q=current(),r=rec();let chosen=r.done?r.selected:(data.chosen!==null?data.chosen:r.selected);data.chosen=chosen;let stage=Math.floor(q.local/4)+1;let html='<div class="micro"><span class="pill">Round '+stage+' / 3</span><span>'+q.section.name+'</span><span>Ejercicio '+(q.local+1)+' de 12</span></div><div class="question">'+q.q+'</div><p class="subtitle">Elegí una respuesta. Comprobá después de resolver en papel.</p><div class="answers">';
-q.options.forEach((opt,i)=>{let cls='answer '+(i===chosen?'selected ':'')+(r.done&&i===q.answer?'correct ':'')+(r.tries>0&&!r.done&&i===r.selected?'wrong ':'');html+='<button class="'+cls+'" data-choice="'+i+'" '+(r.done?'disabled':'')+'><span class="letter">'+String.fromCharCode(65+i)+'</span><span>'+opt+'</span></button>';});html+='</div>';
-if(r.done){html+='<div class="feedback"><strong>'+(r.selected===q.answer?'Correcto.':'Ejercicio marcado para repasar.')+'</strong><div>'+q.explanation+'</div></div>';}
-else if(r.tries){html+='<div class="feedback bad"><strong>Todavía no.</strong> Revisá tu procedimiento antes de volver a comprobar.</div>';}
-if(!r.done&&data.hint>0){for(let i=0;i<data.hint;i++)html+='<div class="hint"><b>Pista '+(i+1)+'</b><div>'+q.hints[i]+'</div></div>';}
-html+='<div id="feedback" aria-live="polite"></div><div class="controls">';
-if(!r.done){html+='<button class="btn primary" id="check" '+(chosen===null?'disabled':'')+'>Comprobar respuesta</button><button class="btn light" id="hint" '+(data.hint>=3?'disabled':'')+'>Pista '+Math.min(data.hint+1,3)+' / 3</button>'+(r.tries>=2?'<button class="btn light" id="skip">Marcar para repasar</button>':'');}
-else html+='<button class="btn primary" id="next">'+(data.position===47?'Ver resumen':'Siguiente ejercicio')+'</button>';
-html+='</div><p class="foot">Podés cambiar de ejercicio desde el mapa de la derecha. La respuesta se registra solo cuando presionás «Comprobar».<br>Recreación de la práctica histórica, no copia byte a byte del archivo original.</p>';
-el("main").innerHTML=html;
-el("main").querySelectorAll("[data-choice]").forEach(b=>b.onclick=()=>setChoice(Number(b.dataset.choice)));if(el("check"))el("check").onclick=check;if(el("hint"))el("hint").onclick=hint;if(el("skip"))el("skip").onclick=skip;if(el("next"))el("next").onclick=next;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+let state={responses:{},position:0,chosen:null,hint:0,started:Date.now(),showReport:false};
+try{const old=JSON.parse(localStorage.getItem(KEY)||"null");if(old&&typeof old==="object"&&old.responses&&typeof old.responses==="object")state={...state,...old};}catch(e){}
+if(!Number.isInteger(state.position)||state.position<0||state.position>=ALL.length)state.position=0;
+let view="home",notice="",noticeBad=false,gateTimer=null;
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){}}
+function record(q){return state.responses[q.id]||{tries:0,hint:0,selected:null,done:false,first:false,review:false};}
+function countDone(qs=ALL){return qs.filter(q=>state.responses[q.id]?.done).length}
+function total(){return {done:countDone(),first:ALL.filter(q=>state.responses[q.id]?.first).length,review:ALL.filter(q=>state.responses[q.id]?.review).length}}
+function setView(v){view=v;$("home").hidden=v!=="home";$("focus").hidden=v!=="focus";$("report").hidden=v!=="report";if(gateTimer){clearTimeout(gateTimer);gateTimer=null;}window.scrollTo(0,0);updateGlobal()}
+function updateGlobal(){let n=countDone();$("globalNum").textContent=n+" / 48";$("globalLine").style.width=(100*n/48)+"%"}
+function showHome(){setView("home");$("topics").innerHTML=BANK.map(s=>{
+ const done=countDone(ALL.filter(q=>q.topic===s.id));
+ return '<button type="button" class="topic-btn" data-topic="'+esc(s.id)+'"><span class="topic-name">'+esc(s.name)+'</span><span class="topic-num">'+done+' / 12</span><span class="topic-arrow" aria-hidden="true">↗</span></button>';
+}).join("");
+$("topics").querySelectorAll("[data-topic]").forEach(b=>b.addEventListener("click",()=>openTopic(b.dataset.topic)));
+$("resultsButton").hidden=countDone()===0;
 }
-function render(){renderSidebar();if(data.showReport)report();else renderQuestion();}
-el("finish").onclick=()=>{data.showReport=true;save();render();window.scrollTo({top:0,behavior:"smooth"});};
-el("reset").onclick=()=>{if(confirm("¿Reiniciar todos los 48 ejercicios?")){data={responses:{},position:0,chosen:null,started:Date.now(),hint:0,showReport:false};save();render();}};
-window.addEventListener("keydown",e=>{if(e.key==="Escape"&&data.showReport){data.showReport=false;render();}});
-render();
+function openTopic(id){
+ const qs=ALL.filter(q=>q.topic===id);
+ if(!qs.length)return;
+ const next=qs.find(q=>!record(q).done)||qs[0];
+ openExercise(ALL.indexOf(next));
+}
+function openExercise(idx){
+ if(idx<0||idx>=ALL.length)return;
+ state.position=idx;state.chosen=null;state.hint=0;state.started=Date.now();notice="";noticeBad=false;persist();setView("focus");renderExercise();
+}
+function renderExercise(){
+ const q=ALL[state.position],r=record(q);
+ $("focusTitle").textContent=q.section.name;
+ $("focusIndex").textContent=(q.local+1)+" / 12";
+ $("focusLine").style.width=((q.local+1)/12*100)+"%";
+ $("question").textContent=q.question;
+ $("answers").innerHTML=q.options.map((opt,i)=>{
+ let selected=state.chosen===i||(r.done&&r.selected===i);
+ let cls=r.done&&i===q.answer?"correct":(!r.done&&r.tries>0&&r.selected===i&&state.chosen===null?"incorrect":(selected?"selected":""));
+ return '<button class="answer '+cls+'" type="button" data-option="'+i+'" '+(r.done?"disabled":"")+' aria-pressed="'+(selected?"true":"false")+'"><span class="letter">'+String.fromCharCode(65+i)+'</span><span class="value">'+esc(opt)+'</span></button>';
+ }).join("");
+ $("answers").querySelectorAll("[data-option]").forEach(b=>b.addEventListener("click",()=>select(Number(b.dataset.option))));
+ const fb=$("feedback");
+ fb.hidden=!notice;fb.textContent=notice;fb.className="feedback"+(noticeBad?" bad":"");
+ const hint=$("hintText");
+ hint.hidden=state.hint<1;
+ hint.textContent=state.hint>0?q.hints.slice(0,state.hint).join(" · "):"";
+ const ctrl=$("controls");
+ if(r.done){
+  ctrl.innerHTML='<button class="primary" id="nextButton" type="button">'+(q.local===11?"Topics":"Next →")+'</button>';
+  $("nextButton").onclick=next;
+ }else{
+  const skip=r.tries>=2?'<button class="secondary" id="skipButton" type="button">Skip</button>':"";
+  ctrl.innerHTML='<button class="primary" id="checkButton" type="button">Check</button><button class="secondary" id="hintButton" type="button">Hint'+(state.hint>0?" "+state.hint+"/3":"")+'</button>'+skip;
+  $("checkButton").onclick=check;
+  $("hintButton").onclick=revealHint;
+  if($("skipButton"))$("skipButton").onclick=skip;
+  updateGate();
+ }
+}
+function updateGate(){
+ if(view!=="focus")return;
+ const b=$("checkButton");if(!b)return;
+ const remaining=Math.max(0,10000-(Date.now()-state.started));
+ b.disabled=state.chosen===null||remaining>0;
+ b.textContent=remaining>0?"Check · "+Math.ceil(remaining/1000):"Check";
+ if(remaining>0){gateTimer=setTimeout(updateGate,Math.min(1000,remaining+60));}
+}
+function select(i){
+ if(record(ALL[state.position]).done)return;
+ state.chosen=i;notice="";noticeBad=false;persist();renderExercise();
+}
+function check(){
+ const q=ALL[state.position],r=record(q);
+ if(r.done||state.chosen===null||Date.now()-state.started<10000)return;
+ r.tries=(r.tries||0)+1;r.selected=state.chosen;
+ r.hint=Math.max(r.hint||0,state.hint);
+ if(r.tries>1||r.hint>0)r.review=true;
+ if(state.chosen===q.answer){r.done=true;r.first=r.tries===1&&r.hint===0;notice="Correct";noticeBad=false;}
+ else{r.review=true;notice="Try again";noticeBad=true;state.chosen=null;}
+ state.responses[q.id]=r;persist();updateGlobal();renderExercise();
+}
+function revealHint(){
+ const q=ALL[state.position],r=record(q);if(r.done)return;
+ state.hint=Math.min(3,state.hint+1);
+ r.hint=Math.max(r.hint||0,state.hint);r.review=true;state.responses[q.id]=r;
+ notice="";persist();renderExercise();
+}
+function skip(){
+ const q=ALL[state.position],r=record(q);if(r.done)return;
+ state.responses[q.id]={...r,done:true,first:false,review:true,skipped:true,selected:null};
+ persist();next();
+}
+function next(){
+ const q=ALL[state.position];
+ if(q.local===11){showHome();return;}
+ openExercise(state.position+1);
+}
+function summaryText(){
+ const t=total();
+ const lines=BANK.map(s=>s.name+": "+countDone(ALL.filter(q=>q.topic===s.id))+"/12");
+ const review=ALL.filter(q=>state.responses[q.id]?.review).map(q=>q.id).join(", ")||"None";
+ return ["JOSÉ · ALGEBRA","48 exercises",...lines,"","Completed: "+t.done+"/48","First attempt without hints: "+t.first,"Review: "+t.review,"Review IDs: "+review,"Date: "+new Date().toLocaleDateString("es-AR")].join("\n");
+}
+function showReport(){
+ setView("report");
+ const t=total();
+ $("reportTotal").innerHTML=t.done+'<small> / 48</small>';
+ $("reportTopics").innerHTML=BANK.map(s=>'<div class="report-line"><span>'+esc(s.name)+'</span><span>'+countDone(ALL.filter(q=>q.topic===s.id))+'/12</span></div>').join("")+
+ '<div class="report-line"><span>First try</span><span>'+t.first+'</span></div><div class="report-line"><span>Review</span><span>'+t.review+'</span></div>';
+ $("reportNote").textContent="";
+ $("copyResults").textContent="Copy results";
+}
+async function copyResults(){
+ let s=summaryText();
+ try{await navigator.clipboard.writeText(s);$("copyResults").textContent="Copied";}
+ catch(e){let a=document.createElement("textarea");a.value=s;document.body.appendChild(a);a.select();const ok=document.execCommand("copy");a.remove();$("copyResults").textContent=ok?"Copied":"Copy failed";}
+}
+$("backButton").onclick=showHome;
+$("resultsButton").onclick=showReport;
+$("reportBack").onclick=showHome;
+$("returnHome").onclick=showHome;
+$("copyResults").onclick=copyResults;
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"&&view!=="home"){showHome();return;}
+ if(view!=="focus")return;
+ const q=ALL[state.position],r=record(q);
+ if(!r.done&&["1","2","3","4"].includes(e.key)){select(Number(e.key)-1);return;}
+ if(e.key==="Enter"&&document.activeElement===document.body){
+ if(r.done)next();else check();
+ }
+});
+showHome();
 </script>
-<script type="module" src="/prometeo/shared/prometeo-shell/v1/prometeo-shell.js?v=1" data-prometeo-shell></script>
 </body></html>
