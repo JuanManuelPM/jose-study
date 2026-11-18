@@ -240,6 +240,7 @@ function check(){
  const blockedUntil=Math.max(r.cooldownUntil||0,state.entryCooldownUntil||0);
  if(Date.now()<blockedUntil)return;
  const chosen=state.chosen;
+ const completesTopic=chosen===q.answer&&q.local===11&&ALL.filter(a=>a.topic===q.topic).every(a=>a.id===q.id||record(a).done);
  r.tries=(r.tries||0)+1;r.selected=chosen;
  r.hint=Math.max(r.hint||0,state.hint);
  if(r.tries>1||r.hint>0)r.review=true;
@@ -247,7 +248,7 @@ function check(){
   r.done=true;r.first=r.tries===1&&r.hint===0;
   r.cooldownUntil=0;state.lastCompletedId=q.id;
   if(r.errors>0){
-   state.streak=0;showSticker("recovery",q);
+   state.streak=0;if(!completesTopic)showSticker("recovery",q);
   }else{
    state.streak=(state.streak||0)+(r.first?1:0);
    if(state.streak>0&&state.streak%3===0&&q.local<8)showSticker("streak",q);
@@ -259,7 +260,7 @@ function check(){
   showSticker(effect,q);notice="Try again";noticeBad=true;state.chosen=null;
  }
  state.responses[q.id]=r;persist();updateGlobal();renderExercise();
- if(r.done&&q.local===11&&countDone(ALL.filter(a=>a.topic===q.topic))===12)showSticker("complete",q);
+ if(completesTopic)showSticker("complete",q);
 }
 function revealHint(){
  const q=ALL[state.position],r=record(q);if(r.done)return;
