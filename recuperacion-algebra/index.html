@@ -88,6 +88,8 @@ header::after{content:"";position:absolute;left:0;right:0;top:75px;height:1px;ba
 @media(max-width:370px){.topic-name{font-size:20px}.answer{min-height:60px}.math{font-size:30px}.focus-middle{padding-bottom:22px}}
 @media(max-height:650px){.focus-middle{justify-content:flex-start;padding-top:22px}.math{margin-bottom:19px}.answer{min-height:58px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+body[data-view="focus"] header,body[data-view="report"] header{display:none}
+body[data-view="focus"] #focus,body[data-view="report"] #report{min-height:100svh}
 </style>
 </head>
 <body>
@@ -95,7 +97,7 @@ header::after{content:"";position:absolute;left:0;right:0;top:75px;height:1px;ba
 <div class="logo">JOSÉ</div>
 <div class="global" aria-label="Progreso global"><span class="global-num" id="globalNum">0 / 48</span><div class="global-line" aria-hidden="true"><span id="globalLine"></span></div></div>
 </header>
-<main id="home"><h1 class="home-name">Mathematics.</h1><div class="topics" id="topics"></div><div class="bottom-actions"><button class="subtle-btn" id="resultsButton" hidden>Results</button></div></main>
+<main id="home"><div class="topics" id="topics"></div><div class="bottom-actions"><button class="subtle-btn" id="resultsButton" hidden>Results</button></div></main>
 <main id="focus" hidden><div class="focus-top"><button class="back" id="backButton" aria-label="Volver a temas">←</button><div class="focus-title" id="focusTitle"></div><div class="focus-index" id="focusIndex"></div></div><div class="focus-stage" aria-hidden="true"><span id="focusLine"></span></div><section class="focus-middle"><h1 class="math" id="question"></h1><div class="answers" id="answers" role="group" aria-label="Respuestas"></div><div class="feedback" id="feedback" role="status" aria-live="polite" hidden></div><div class="hint-text" id="hintText" hidden></div><div class="controls" id="controls"></div></section></main>
 <main id="report" hidden><button class="secondary" id="reportBack" style="text-align:left;align-self:flex-start">← Back</button><h1 class="report-title">Results.</h1><div class="report-total" id="reportTotal"></div><div id="reportTopics"></div><div class="report-actions"><button class="primary" id="copyResults">Copy results</button><button class="secondary" id="returnHome">Home</button></div><div id="reportNote"></div></main>
 <script>
@@ -116,7 +118,7 @@ function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e)
 function record(q){return state.responses[q.id]||{tries:0,hint:0,selected:null,done:false,first:false,review:false};}
 function countDone(qs=ALL){return qs.filter(q=>state.responses[q.id]?.done).length}
 function total(){return {done:countDone(),first:ALL.filter(q=>state.responses[q.id]?.first).length,review:ALL.filter(q=>state.responses[q.id]?.review).length}}
-function setView(v){view=v;$("home").hidden=v!=="home";$("focus").hidden=v!=="focus";$("report").hidden=v!=="report";if(gateTimer){clearTimeout(gateTimer);gateTimer=null;}window.scrollTo(0,0);updateGlobal()}
+function setView(v){view=v;document.body.dataset.view=v;$("home").hidden=v!=="home";$("focus").hidden=v!=="focus";$("report").hidden=v!=="report";if(gateTimer){clearTimeout(gateTimer);gateTimer=null;}window.scrollTo(0,0);updateGlobal()}
 function updateGlobal(){let n=countDone();$("globalNum").textContent=n+" / 48";$("globalLine").style.width=(100*n/48)+"%"}
 function showHome(){setView("home");$("topics").innerHTML=BANK.map(s=>{
  const done=countDone(ALL.filter(q=>q.topic===s.id));
@@ -136,6 +138,7 @@ function openExercise(idx){
  state.position=idx;state.chosen=null;state.hint=0;state.started=Date.now();notice="";noticeBad=false;persist();setView("focus");renderExercise();
 }
 function renderExercise(){
+ if(gateTimer){clearTimeout(gateTimer);gateTimer=null;}
  const q=ALL[state.position],r=record(q);
  $("focusTitle").textContent=q.section.name;
  $("focusIndex").textContent=(q.local+1)+" / 12";
