@@ -122,7 +122,7 @@ const ALL=BANK.flatMap(s=>s.q.map((a,j)=>({
 const KEY="jose-algebra-recovery-48-v1";
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-let state={responses:{},position:0,chosen:null,hint:0,started:Date.now(),showReport:false,entryCooldownUntil:0,metaVersion:3,streak:0,lastCompletedId:null};
+let state={responses:{},position:0,chosen:null,hint:0,started:Date.now(),showReport:false,entryCooldownUntil:0,metaVersion:0,streak:0,lastCompletedId:null};
 try{const old=JSON.parse(localStorage.getItem(KEY)||"null");if(old&&typeof old==="object"&&old.responses&&typeof old.responses==="object")state={...state,...old};}catch(e){}
 if(!Number.isInteger(state.position)||state.position<0||state.position>=ALL.length)state.position=0;
 if(state.metaVersion!==3){
